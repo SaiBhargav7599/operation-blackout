@@ -7,407 +7,1119 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0b0e;--bg2:#0f1117;--bg3:#151820;--bg4:#1a1e28;--accent:#d4922a;--accent2:#4e8fa3;--text:#e2ddd4;--muted:#6b7280;--border:#1e2330;--border2:#272f40;--font-display:'Syne',sans-serif;--font-mono:'Space Mono',monospace;--font-body:'Inter',sans-serif;--sidebar-w:220px}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.75;overflow-x:hidden}
-img{max-width:100%;display:block;border-radius:4px}
-a{color:var(--accent);text-decoration:none}
-a:hover{text-decoration:underline}
-body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.45}
-.topnav{position:sticky;top:0;z-index:300;background:rgba(10,11,14,.92);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
-.topnav-inner{max-width:1300px;margin:0 auto;padding:0 28px;height:52px;display:flex;align-items:center;justify-content:space-between}
-.nav-brand{font-family:var(--font-display);font-weight:800;font-size:.95rem;letter-spacing:1px;color:var(--text)}
-.nav-brand span{color:var(--accent)}
-.nav-links{display:flex;gap:24px;align-items:center}
-.nav-links a{font-family:var(--font-mono);font-size:.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);transition:color .2s}
-.nav-links a:hover{color:var(--text);text-decoration:none}
-.nav-links .cta{border:1px solid var(--accent);color:var(--accent);padding:5px 16px;border-radius:2px;transition:background .2s,color .2s}
-.nav-links .cta:hover{background:var(--accent);color:#000}
-.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
-.hero-video-bg{position:absolute;inset:0;z-index:0;overflow:hidden}
-.hero-video-bg iframe{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(1.4);width:100%;height:100%;min-width:177.78vh;min-height:56.25vw;pointer-events:none}
-.hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(10,11,14,1) 0%,rgba(10,11,14,.65) 45%,rgba(10,11,14,.15) 100%)}
-.hero-content{position:relative;z-index:2;padding:64px 28px 80px;max-width:1300px;margin:0 auto;width:100%}
-.hero-eyebrow{font-family:var(--font-mono);font-size:.65rem;letter-spacing:5px;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
-.hero h1{font-family:var(--font-display);font-size:clamp(3.5rem,9vw,8rem);font-weight:800;line-height:.9;letter-spacing:-1px;color:#fff;margin-bottom:8px}
-.hero h1 .sub{display:block;font-size:clamp(1.2rem,2.5vw,2rem);letter-spacing:6px;color:var(--accent);font-weight:700;margin-top:10px}
-.meta-grid{display:flex;flex-wrap:wrap;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:6px;overflow:hidden;margin:32px 0}
-.meta-cell{background:rgba(15,17,23,.95);padding:14px 20px;min-width:110px}
-.meta-cell dt{font-family:var(--font-mono);font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-.meta-cell dd{font-family:var(--font-display);font-size:.9rem;font-weight:600;color:var(--text)}
-.hero-btns{display:flex;gap:10px;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#000;font-family:var(--font-mono);font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;border-radius:2px;transition:opacity .2s,transform .2s}
-.btn-primary:hover{opacity:.85;transform:translateY(-2px);text-decoration:none}
-.btn-ghost{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border2);color:var(--muted);font-family:var(--font-mono);font-size:.72rem;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;border-radius:2px;transition:border-color .2s,color .2s}
-.btn-ghost:hover{border-color:var(--text);color:var(--text);text-decoration:none}
-.page-body{max-width:1300px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:var(--sidebar-w) 1fr;gap:52px;align-items:start}
-.sidebar{position:sticky;top:68px;padding:28px 0}
-.toc-label{font-family:var(--font-mono);font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-left:16px}
-.toc-list{list-style:none;border-left:1px solid var(--border)}
-.toc-list li a{display:block;padding:8px 16px;font-family:var(--font-mono);font-size:.68rem;letter-spacing:1px;color:var(--muted);border-left:2px solid transparent;margin-left:-1px;transition:color .2s,border-color .2s}
-.toc-list li a:hover{color:var(--text);text-decoration:none;border-left-color:var(--border2)}
-.toc-list li a.active{color:var(--accent);border-left-color:var(--accent)}
-.toc-sub{padding-left:28px !important;font-size:.62rem !important}
-.main-content{min-width:0}
-.section{padding:72px 0;border-bottom:1px solid var(--border)}
-.section:last-child{border-bottom:none}
-.sec-header{margin-bottom:44px;padding-bottom:18px;border-bottom:1px solid var(--border)}
-.sec-eyebrow{font-family:var(--font-mono);font-size:.58rem;letter-spacing:4px;text-transform:uppercase;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:10px}
-.sec-eyebrow::before{content:'';width:20px;height:1px;background:var(--accent)}
-.sec-header h2{font-family:var(--font-display);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;letter-spacing:-.5px}
-p.bt{color:var(--muted);font-size:.95rem;line-height:1.85;margin-bottom:14px}
-strong{color:var(--text)}
-.goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
-.arc-callout{background:var(--bg3);border:1px solid var(--border2);border-left:3px solid var(--accent);border-radius:0 4px 4px 0;padding:16px 20px;margin:18px 0;font-family:var(--font-display);font-size:1rem;font-weight:600;color:var(--accent);letter-spacing:.5px}
-.pillars{display:flex;flex-direction:column;gap:8px;margin-top:16px}
-.pillar{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:11px 16px;font-size:.88rem;display:flex;align-items:flex-start;gap:10px}
-.pillar::before{content:'▸';color:var(--accent);flex-shrink:0;margin-top:1px}
-.iw{position:relative;overflow:hidden;border-radius:4px;cursor:zoom-in}
-.iw img{width:100%;transition:transform .4s}
-.iw:hover img{transform:scale(1.03)}
-.iw .cap{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(10,11,14,.85));padding:28px 12px 10px;font-family:var(--font-mono);font-size:.68rem;color:rgba(255,255,255,.65);opacity:0;transition:opacity .3s}
-.iw:hover .cap{opacity:1}
-.ip{border-radius:4px;cursor:zoom-in;transition:transform .3s}
-.ip:hover{transform:scale(1.02)}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.sp2{grid-column:1/-1}
-.ts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px}
-.ts img{width:105px;height:72px;object-fit:cover;border-radius:3px;border:2px solid transparent;cursor:zoom-in;transition:border-color .2s,transform .2s}
-.ts img:hover{border-color:var(--accent);transform:scale(1.06)}
-.as{position:relative;overflow:hidden;border-radius:4px}
-.at{display:flex;transition:transform .5s ease}
-.at img{flex-shrink:0;width:100%;height:300px;object-fit:cover}
-.sdots{display:flex;justify-content:center;gap:6px;margin-top:10px}
-.sdots button{width:6px;height:6px;border-radius:50%;background:var(--border2);border:none;cursor:pointer;padding:0;transition:background .2s}
-.sdots button.on{background:var(--accent)}
-.arsl{position:relative;overflow:hidden;border-radius:4px}
-.artr{display:flex;transition:transform .4s ease}
-.artr img{flex-shrink:0;width:100%;object-fit:cover;max-height:380px}
-.ab{position:absolute;top:50%;transform:translateY(-50%);background:rgba(10,11,14,.75);border:1px solid var(--border2);color:var(--text);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;z-index:5;transition:background .2s,border-color .2s}
-.ab:hover{background:var(--accent);color:#000;border-color:var(--accent)}
-.ab.prev{left:10px}
-.ab.next{right:10px}
-.sc{text-align:center;margin-top:10px;font-family:var(--font-mono);font-size:.68rem;color:var(--muted);font-style:italic;line-height:1.5}
-.ve{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;margin:16px 0;background:#000;border:1px solid var(--border)}
-.ve iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none}
-.vl{font-family:var(--font-mono);font-size:.62rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.sl{font-family:var(--font-mono);font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;margin-top:32px;display:flex;align-items:center;gap:10px}
-.sl::before{content:'';width:14px;height:1px;background:var(--accent)}
-.og{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-bottom:52px}
-.ic{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:22px}
-.ic h4{font-family:var(--font-mono);font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-.ic p{color:var(--muted);font-size:.88rem;margin-bottom:6px}
-.tr{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
-.tg{background:rgba(212,146,42,.07);border:1px solid rgba(212,146,42,.22);color:var(--accent);font-family:var(--font-mono);font-size:.62rem;letter-spacing:1px;padding:3px 10px;border-radius:2px}
-.syc{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--accent2);border-radius:0 6px 6px 0;padding:20px;margin-top:14px}
-.syc h4{font-family:var(--font-mono);font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent2);margin-bottom:12px}
-.hlb{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:60px;align-items:start}
-.hlb.flip{direction:rtl}
-.hlb.flip>*{direction:ltr}
-.hlt ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:9px;margin-top:14px}
-.hlt ul li{padding:10px 16px 10px 14px;background:var(--bg2);border-left:2px solid var(--border2);border-radius:0 4px 4px 0;font-size:.87rem;color:var(--muted);line-height:1.65}
-.hlt ul li:hover{border-left-color:var(--accent)}
-.eg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
-.ec{background:var(--bg2);border:1px solid var(--border);border-radius:6px;overflow:hidden;transition:border-color .2s,transform .2s}
-.ec:hover{border-color:var(--accent);transform:translateY(-2px)}
-.ec img{width:100%;aspect-ratio:4/3;object-fit:cover}
-.ecb{padding:14px 16px}
-.ecr{font-family:var(--font-mono);font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:5px}
-.ecb h4{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-bottom:8px}
-.ecb p{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:6px}
-.ecp{font-size:.77rem;color:var(--accent2);font-style:italic;border-top:1px solid var(--border);padding-top:8px;margin-top:6px}
-.arcb{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:18px 22px;margin-bottom:32px;overflow-x:auto}
-.arcb h4{font-family:var(--font-mono);font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-.arcs{display:flex;gap:0}
-.arcs-step{flex:1;min-width:100px;text-align:center;padding:12px 8px;border-right:1px solid var(--border)}
-.arcs-step:last-child{border-right:none}
-.asl{font-family:var(--font-display);font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:4px}
-.ase{font-family:var(--font-mono);font-size:.6rem;color:var(--accent);font-style:italic}
-.bw{display:grid;grid-template-columns:240px 1fr;gap:24px;align-items:start}
-.bn{position:sticky;top:68px;display:flex;flex-direction:column;gap:4px}
-.bb{display:flex;align-items:center;gap:10px;background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:9px 12px;cursor:pointer;text-align:left;width:100%;transition:border-color .2s}
-.bb img{width:50px;height:34px;object-fit:cover;border-radius:2px;flex-shrink:0;border:1px solid var(--border)}
-.bb .bl{display:flex;flex-direction:column;gap:2px}
-.bb .bnum{font-family:var(--font-mono);font-size:.58rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
-.bb .bname{font-family:var(--font-display);font-size:.82rem;font-weight:600;color:var(--text);line-height:1.2}
-.bb:hover,.bb.on{border-color:var(--accent)}
-.bb.on .bnum{color:var(--accent)}
-.bp{display:none}
-.bp.on{display:block}
-.bpn{font-family:var(--font-mono);font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
-.bp h3{font-family:var(--font-display);font-size:1.7rem;font-weight:800;margin-bottom:10px;letter-spacing:-.5px}
-.bpp{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
-.bppl{font-family:var(--font-mono);font-size:.62rem;letter-spacing:1px;padding:4px 10px;border-radius:2px;border:1px solid}
-.bpe{border-color:rgba(212,146,42,.3);color:var(--accent);background:rgba(212,146,42,.06)}
-.bpg{border-color:rgba(78,143,163,.3);color:var(--accent2);background:rgba(78,143,163,.06)}
-.bpb p{color:var(--muted);font-size:.9rem;line-height:1.8;margin-bottom:10px}
-.bpl{list-style:none;padding:0;display:flex;flex-direction:column;gap:7px;margin-top:10px}
-.bpl li{background:var(--bg2);border-left:2px solid var(--border2);border-radius:0 4px 4px 0;padding:9px 14px;font-size:.85rem;color:var(--muted)}
-.bpnt{background:rgba(212,146,42,.05);border:1px solid rgba(212,146,42,.18);border-radius:4px;padding:12px 16px;margin-top:12px;font-size:.83rem;color:var(--text)}
-.bpnt strong{color:var(--accent)}
-.sbs{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0 12px}
-.sbtn{background:var(--bg2);border:1px solid var(--border);color:var(--muted);font-family:var(--font-mono);font-size:.65rem;letter-spacing:1px;padding:5px 12px;border-radius:2px;cursor:pointer;transition:all .2s}
-.sbtn:hover,.sbtn.on{border-color:var(--accent);color:var(--accent)}
-.spnl{display:none}
-.spnl.on{display:block}
-.td{margin-top:52px;text-align:center}
-.td h4{font-family:var(--font-mono);font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
-.tb{margin-bottom:48px}
-.tb h3{font-family:var(--font-display);font-size:1.1rem;font-weight:700;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
-.tb h3::before{content:'';width:14px;height:2px;background:var(--accent);flex-shrink:0}
-.t2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.t3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.pss{display:flex;flex-direction:column;gap:60px}
-.ps{display:grid;grid-template-columns:52px 1fr;gap:28px}
-.psn{font-family:var(--font-display);font-size:3.5rem;font-weight:800;color:var(--border2);line-height:1;text-align:center;padding-top:4px}
-.psb h3{font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:6px;letter-spacing:-.3px}
-.pgl{font-family:var(--font-mono);font-size:.58rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted)}
-.pgt{font-size:.9rem;color:var(--muted);margin:4px 0 16px}
-.psc{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}
-.psca{position:relative;border-radius:4px;overflow:hidden;cursor:zoom-in}
-.psca img{width:100%;aspect-ratio:16/7;object-fit:cover}
-.pscap{position:absolute;bottom:0;left:0;right:0;background:rgba(10,11,14,.75);padding:6px 10px;font-family:var(--font-mono);font-size:.62rem;color:rgba(255,255,255,.55)}
-.pst p{color:var(--muted);font-size:.88rem;line-height:1.8;margin-bottom:10px}
-.pst ul{padding-left:16px;margin-bottom:10px}
-.pst li{color:var(--muted);font-size:.87rem;margin-bottom:6px}
-.pst strong{color:var(--text)}
-.lb2{background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:26px 30px;margin-top:40px}
-.lb2 h3{font-family:var(--font-display);font-size:1.3rem;font-weight:800;color:var(--accent);margin-bottom:16px}
-.lb2 ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:9px}
-.lb2 li{display:flex;gap:10px;font-size:.88rem;color:var(--muted)}
-.lb2 li::before{content:'▸';color:var(--accent);flex-shrink:0}
-.lb2 p{color:var(--muted);font-size:.88rem;margin-top:14px}
-footer{border-top:1px solid var(--border);padding:36px 28px;text-align:center}
-footer p{font-family:var(--font-mono);font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted)}
-#lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:1000;align-items:center;justify-content:center;padding:20px}
-#lb.open{display:flex}
-#lb img{max-width:92vw;max-height:92vh;object-fit:contain;border-radius:4px}
-#lbx{position:absolute;top:14px;right:20px;background:none;border:none;color:var(--muted);font-size:2rem;cursor:pointer;transition:color .2s}
-#lbx:hover{color:#fff}
-.fi{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
-.fi.vis{opacity:1;transform:none}
-.hlh{font-family:var(--font-display);font-size:1.4rem;font-weight:800;margin-bottom:6px;letter-spacing:-.3px}
-@media(max-width:900px){.page-body{grid-template-columns:1fr}.sidebar{display:none}.goal-grid,.og,.hlb,.hlb.flip,.bw,.eg{grid-template-columns:1fr}.hlb.flip{direction:ltr}.bn{position:static;flex-direction:row;overflow-x:auto}.g3,.g4{grid-template-columns:1fr 1fr}.ps{grid-template-columns:1fr}.psn{text-align:left}.psc{grid-template-columns:1fr}}
+/* ── EXACT COLORS FROM UPLOADED index.html ── */
+:root {
+  --bg: #0d0d0f;
+  --bg-card: #13131a;
+  --bg-card2: #1a1a24;
+  --accent: #c8f55a;
+  --accent2: #7b61ff;
+  --text: #e8e6f0;
+  --muted: #7a7890;
+  --border: #2a2a3a;
+  --font-display: 'Syne', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+  --sidebar-w: 210px;
+  --max-w: 1100px;
+}
+
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:var(--font-body); font-size:16px; line-height:1.7; overflow-x:hidden; }
+img { max-width:100%; display:block; border-radius:6px; }
+a { color:var(--accent); text-decoration:none; }
+a:hover { text-decoration:underline; }
+
+/* grain */
+body::before { content:''; position:fixed; inset:0; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events:none; z-index:9999; opacity:.4; }
+
+/* ── NAV ── */
+nav { position:sticky; top:0; z-index:200; background:rgba(13,13,15,.88); backdrop-filter:blur(16px); border-bottom:1px solid var(--border); }
+.nav-inner { max-width:1300px; margin:0 auto; padding:0 28px; height:54px; display:flex; align-items:center; justify-content:space-between; }
+.nav-brand { font-family:var(--font-display); font-weight:800; font-size:.95rem; letter-spacing:1px; color:var(--text); }
+.nav-brand span { color:var(--accent); }
+.nav-links { display:flex; gap:24px; align-items:center; }
+.nav-links a { font-family:var(--font-mono); font-size:.68rem; letter-spacing:2px; text-transform:uppercase; color:var(--muted); transition:color .2s; }
+.nav-links a:hover { color:var(--text); text-decoration:none; }
+.nav-links .cta { border:1px solid var(--accent); color:var(--accent); padding:5px 16px; border-radius:3px; transition:background .2s,color .2s; }
+.nav-links .cta:hover { background:var(--accent); color:#000; }
+
+/* ── HERO ── */
+.hero { position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; overflow:hidden; }
+.hero-video-bg { position:absolute; inset:0; z-index:0; overflow:hidden; }
+.hero-video-bg iframe { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%) scale(1.4); width:100%; height:100%; min-width:177.78vh; min-height:56.25vw; pointer-events:none; }
+.hero-overlay { position:absolute; inset:0; z-index:1; background:linear-gradient(to top,rgba(13,13,15,1) 0%,rgba(13,13,15,.6) 45%,rgba(13,13,15,.15) 100%); }
+.hero-content { position:relative; z-index:2; padding:64px 28px 80px; max-width:1300px; margin:0 auto; width:100%; }
+.hero-eyebrow { font-family:var(--font-mono); font-size:.65rem; letter-spacing:5px; text-transform:uppercase; color:var(--muted); margin-bottom:18px; }
+.hero h1 { font-family:var(--font-display); font-size:clamp(3.5rem,9vw,8rem); font-weight:800; line-height:.9; letter-spacing:-1px; color:#fff; margin-bottom:8px; }
+.hero h1 .sub { display:block; font-size:clamp(1.2rem,2.5vw,2rem); letter-spacing:6px; color:var(--accent); font-weight:700; margin-top:12px; }
+
+/* meta strip */
+.meta-strip { display:flex; flex-wrap:wrap; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:8px; overflow:hidden; margin:36px 0; }
+.meta-cell { background:var(--bg-card); padding:14px 20px; min-width:110px; }
+.meta-cell dt { font-family:var(--font-mono); font-size:.58rem; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:5px; }
+.meta-cell dd { font-family:var(--font-display); font-size:.9rem; font-weight:700; color:var(--text); }
+.hero-btns { display:flex; gap:10px; flex-wrap:wrap; }
+.btn-primary { display:inline-flex; align-items:center; gap:8px; background:var(--accent); color:#000; font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:13px 26px; border-radius:4px; transition:opacity .2s,transform .2s; }
+.btn-primary:hover { opacity:.85; transform:translateY(-2px); text-decoration:none; }
+.btn-ghost { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--border); color:var(--muted); font-family:var(--font-mono); font-size:.72rem; letter-spacing:2px; text-transform:uppercase; padding:13px 26px; border-radius:4px; transition:border-color .2s,color .2s; }
+.btn-ghost:hover { border-color:var(--text); color:var(--text); text-decoration:none; }
+
+/* ── PAGE LAYOUT ── */
+.page-body { max-width:1300px; margin:0 auto; padding:0 28px; display:grid; grid-template-columns:var(--sidebar-w) 1fr; gap:56px; align-items:start; }
+
+/* ── SIDEBAR TOC ── */
+.sidebar { position:sticky; top:68px; padding:32px 0; }
+.toc-heading { font-family:var(--font-mono); font-size:.58rem; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:16px; padding-left:16px; }
+.toc-list { list-style:none; border-left:1px solid var(--border); }
+.toc-list a { display:block; padding:8px 16px; font-family:var(--font-mono); font-size:.65rem; letter-spacing:1px; color:var(--muted); border-left:2px solid transparent; margin-left:-1px; transition:color .2s,border-color .2s; }
+.toc-list a:hover { color:var(--text); text-decoration:none; border-left-color:var(--border); }
+.toc-list a.active { color:var(--accent); border-left-color:var(--accent); }
+.toc-sub { padding-left:28px !important; font-size:.6rem !important; }
+
+/* ── MAIN CONTENT ── */
+.main-content { min-width:0; }
+section.sec { padding:80px 0; border-bottom:1px solid var(--border); }
+section.sec:last-child { border-bottom:none; }
+
+/* ── SECTION HEADERS ── */
+.sec-header { margin-bottom:52px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+.sec-eyebrow { font-family:var(--font-mono); font-size:.62rem; letter-spacing:4px; text-transform:uppercase; color:var(--accent); margin-bottom:10px; display:flex; align-items:center; gap:10px; }
+.sec-eyebrow::before { content:''; width:22px; height:1px; background:var(--accent); }
+.sec-header h2 { font-family:var(--font-display); font-size:clamp(2rem,4vw,3rem); font-weight:800; letter-spacing:-1px; line-height:1.1; }
+.sec-header p { color:var(--muted); font-size:.95rem; margin-top:10px; max-width:600px; }
+
+/* ── TYPOGRAPHY ── */
+.body-text { color:var(--muted); font-size:.95rem; line-height:1.85; margin-bottom:16px; }
+strong { color:var(--text); }
+em { color:var(--accent); font-style:normal; }
+
+/* highlight box */
+.insight-box { background:var(--bg-card2); border:1px solid var(--border); border-left:3px solid var(--accent); border-radius:0 8px 8px 0; padding:18px 22px; margin:20px 0; }
+.insight-box p { color:var(--text); font-family:var(--font-display); font-size:1rem; font-weight:600; margin:0; }
+.insight-box.purple { border-left-color:var(--accent2); }
+.insight-box.purple p { color:var(--text); }
+
+/* sub-label */
+.sub-label { font-family:var(--font-mono); font-size:.6rem; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:14px; margin-top:36px; display:flex; align-items:center; gap:10px; }
+.sub-label::before { content:''; width:14px; height:1px; background:var(--accent); }
+
+/* h3 style */
+.hl-title { font-family:var(--font-display); font-size:1.5rem; font-weight:800; letter-spacing:-.5px; margin-bottom:6px; }
+
+/* ── IMAGE COMPONENTS ── */
+.img-wrap { position:relative; overflow:hidden; border-radius:8px; cursor:zoom-in; }
+.img-wrap img { width:100%; transition:transform .4s; }
+.img-wrap:hover img { transform:scale(1.03); }
+.img-wrap .cap { position:absolute; bottom:0; left:0; right:0; background:linear-gradient(transparent,rgba(13,13,15,.88)); padding:28px 14px 12px; font-family:var(--font-mono); font-size:.68rem; color:rgba(255,255,255,.65); opacity:0; transition:opacity .3s; line-height:1.5; }
+.img-wrap:hover .cap { opacity:1; }
+.img-plain { border-radius:8px; cursor:zoom-in; transition:transform .3s; width:100%; }
+.img-plain:hover { transform:scale(1.02); }
+
+/* grids */
+.g2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+.g4 { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+.sp2 { grid-column:1/-1; }
+
+/* ── CAROUSEL (arrow slider) ── */
+.carousel { position:relative; overflow:hidden; border-radius:8px; background:var(--bg-card); }
+.carousel-track { display:flex; transition:transform .45s cubic-bezier(.4,0,.2,1); }
+.carousel-track img { flex-shrink:0; width:100%; object-fit:cover; max-height:420px; border-radius:0; }
+.car-btn { position:absolute; top:50%; transform:translateY(-50%); background:rgba(13,13,15,.8); border:1px solid var(--border); color:var(--text); width:38px; height:38px; border-radius:50%; cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center; z-index:5; transition:background .2s,border-color .2s; }
+.car-btn:hover { background:var(--accent); color:#000; border-color:var(--accent); }
+.car-btn.prev { left:12px; }
+.car-btn.next { right:12px; }
+.car-counter { position:absolute; bottom:12px; right:14px; background:rgba(13,13,15,.75); border:1px solid var(--border); font-family:var(--font-mono); font-size:.62rem; color:var(--muted); padding:3px 10px; border-radius:20px; }
+.car-caption { font-family:var(--font-mono); font-size:.7rem; color:var(--muted); text-align:center; margin-top:10px; min-height:1.4em; font-style:italic; }
+
+/* ── AUTO SLIDER (timed) ── */
+.auto-slider { position:relative; overflow:hidden; border-radius:8px; }
+.auto-track { display:flex; transition:transform .5s ease; }
+.auto-track img { flex-shrink:0; width:100%; height:280px; object-fit:cover; border-radius:0; }
+.sdots { display:flex; justify-content:center; gap:6px; margin-top:10px; }
+.sdots button { width:6px; height:6px; border-radius:50%; background:var(--border); border:none; cursor:pointer; padding:0; transition:background .2s; }
+.sdots button.on { background:var(--accent); }
+
+/* ── THUMB STRIP (click to expand) ── */
+.thumb-grid { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px; }
+.thumb-grid img { width:100px; height:68px; object-fit:cover; border-radius:6px; border:2px solid transparent; cursor:zoom-in; transition:border-color .2s,transform .2s; }
+.thumb-grid img:hover { border-color:var(--accent); transform:scale(1.06); }
+
+/* ── INLINE VIDEO ── */
+.video-wrap { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:8px; margin:20px 0; border:1px solid var(--border); background:#000; }
+.video-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; }
+.video-label { font-family:var(--font-mono); font-size:.6rem; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+
+/* ── COLLAPSIBLE ── */
+.collapsible { border:1px solid var(--border); border-radius:8px; overflow:hidden; margin-bottom:16px; }
+.coll-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px; cursor:pointer; background:var(--bg-card); transition:background .2s; user-select:none; }
+.coll-header:hover { background:var(--bg-card2); }
+.coll-title { font-family:var(--font-display); font-size:.95rem; font-weight:700; color:var(--text); display:flex; align-items:center; gap:10px; }
+.coll-title::before { content:''; width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+.coll-arrow { font-size:.8rem; color:var(--muted); transition:transform .3s; }
+.collapsible.open .coll-arrow { transform:rotate(180deg); }
+.coll-body { display:none; padding:20px; border-top:1px solid var(--border); background:var(--bg); }
+.collapsible.open .coll-body { display:block; }
+
+/* ── OVERVIEW ── */
+.overview-grid { display:grid; grid-template-columns:1fr 1fr; gap:36px; margin-bottom:52px; }
+.info-card { background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:24px; }
+.info-card h4 { font-family:var(--font-mono); font-size:.6rem; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+.info-card p { color:var(--muted); font-size:.9rem; margin-bottom:6px; }
+.tag-row { display:flex; flex-wrap:wrap; gap:6px; margin-top:12px; }
+.tag { background:rgba(200,245,90,.07); border:1px solid rgba(200,245,90,.2); color:var(--accent); font-family:var(--font-mono); font-size:.62rem; letter-spacing:1px; padding:3px 10px; border-radius:3px; }
+.synopsis-card { background:var(--bg-card2); border:1px solid var(--border); border-left:3px solid var(--accent2); border-radius:0 8px 8px 0; padding:22px; margin-top:16px; }
+.synopsis-card h4 { font-family:var(--font-mono); font-size:.6rem; letter-spacing:3px; text-transform:uppercase; color:var(--accent2); margin-bottom:12px; }
+
+/* highlight block */
+.hl-block { display:grid; grid-template-columns:1fr 1fr; gap:36px; margin-bottom:16px; align-items:start; }
+.hl-block.flip { direction:rtl; }
+.hl-block.flip > * { direction:ltr; }
+.hl-text ul { list-style:none; padding:0; display:flex; flex-direction:column; gap:10px; margin-top:16px; }
+.hl-text ul li { padding:12px 16px; background:var(--bg-card); border-left:2px solid var(--border); border-radius:0 6px 6px 0; font-size:.9rem; color:var(--muted); line-height:1.65; transition:border-color .2s; }
+.hl-text ul li:hover { border-left-color:var(--accent); }
+
+/* enemy cards */
+.enemy-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:20px; }
+.enemy-card { background:var(--bg-card); border:1px solid var(--border); border-radius:8px; overflow:hidden; transition:border-color .2s,transform .2s; }
+.enemy-card:hover { border-color:var(--accent); transform:translateY(-2px); }
+.enemy-card img { width:100%; aspect-ratio:4/3; object-fit:cover; }
+.ec-body { padding:14px 18px; }
+.ec-role { font-family:var(--font-mono); font-size:.58rem; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:5px; }
+.ec-body h4 { font-family:var(--font-display); font-size:1rem; font-weight:700; margin-bottom:8px; }
+.ec-body p { font-size:.85rem; color:var(--muted); line-height:1.6; margin-bottom:6px; }
+.ec-purpose { font-size:.78rem; color:var(--accent2); font-style:italic; border-top:1px solid var(--border); padding-top:8px; margin-top:6px; }
+
+/* ── WALKTHROUGH ── */
+.arc-bar { background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:20px 24px; margin-bottom:36px; overflow-x:auto; }
+.arc-bar h4 { font-family:var(--font-mono); font-size:.6rem; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:16px; }
+.arc-steps { display:flex; }
+.arc-step { flex:1; min-width:90px; text-align:center; padding:12px 8px; border-right:1px solid var(--border); }
+.arc-step:last-child { border-right:none; }
+.arc-loc { font-family:var(--font-display); font-size:.85rem; font-weight:700; color:var(--text); margin-bottom:4px; }
+.arc-emo { font-family:var(--font-mono); font-size:.6rem; color:var(--accent); font-style:italic; }
+
+.beats-wrap { display:grid; grid-template-columns:250px 1fr; gap:28px; align-items:start; }
+.beats-nav { position:sticky; top:68px; display:flex; flex-direction:column; gap:4px; }
+.beat-btn { display:flex; align-items:center; gap:10px; background:var(--bg-card); border:1px solid var(--border); border-radius:6px; padding:10px 14px; cursor:pointer; text-align:left; width:100%; transition:border-color .2s; }
+.beat-btn img { width:52px; height:36px; object-fit:cover; border-radius:4px; flex-shrink:0; border:1px solid var(--border); }
+.beat-btn .bl { display:flex; flex-direction:column; gap:2px; }
+.beat-btn .bnum { font-family:var(--font-mono); font-size:.58rem; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+.beat-btn .bname { font-family:var(--font-display); font-size:.85rem; font-weight:700; color:var(--text); line-height:1.2; }
+.beat-btn:hover, .beat-btn.on { border-color:var(--accent); }
+.beat-btn.on .bnum { color:var(--accent); }
+
+.beat-panel { display:none; }
+.beat-panel.on { display:block; }
+.bp-num { font-family:var(--font-mono); font-size:.6rem; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
+.beat-panel > h3 { font-family:var(--font-display); font-size:1.8rem; font-weight:800; margin-bottom:10px; letter-spacing:-.5px; }
+.bp-pills { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
+.bp-pill { font-family:var(--font-mono); font-size:.62rem; letter-spacing:1px; padding:4px 12px; border-radius:3px; border:1px solid; }
+.bp-emo { border-color:rgba(200,245,90,.3); color:var(--accent); background:rgba(200,245,90,.06); }
+.bp-gp  { border-color:rgba(123,97,255,.3); color:var(--accent2); background:rgba(123,97,255,.06); }
+.beat-panel p { color:var(--muted); font-size:.92rem; line-height:1.8; margin-bottom:10px; }
+.bp-list { list-style:none; padding:0; display:flex; flex-direction:column; gap:8px; margin-top:12px; }
+.bp-list li { background:var(--bg-card); border-radius:6px; border-left:2px solid var(--border); padding:10px 16px; font-size:.88rem; color:var(--muted); }
+.bp-note { background:var(--bg-card2); border:1px solid var(--border); border-left:3px solid var(--accent); border-radius:0 6px 6px 0; padding:12px 16px; margin-top:14px; font-size:.85rem; color:var(--text); }
+.bp-note strong { color:var(--accent); }
+
+.sub-beats { display:flex; gap:6px; flex-wrap:wrap; margin:18px 0 14px; }
+.sub-btn { background:var(--bg-card); border:1px solid var(--border); color:var(--muted); font-family:var(--font-mono); font-size:.65rem; letter-spacing:1px; padding:6px 14px; border-radius:3px; cursor:pointer; transition:all .2s; }
+.sub-btn:hover, .sub-btn.on { border-color:var(--accent); color:var(--accent); }
+.sub-panel { display:none; }
+.sub-panel.on { display:block; }
+
+.topdown { margin-top:56px; text-align:center; }
+.topdown h4 { font-family:var(--font-mono); font-size:.6rem; letter-spacing:3px; text-transform:uppercase; color:var(--accent); margin-bottom:20px; }
+
+/* ── TECHNIQUES ── */
+.tech-block { margin-bottom:56px; }
+.tech-block h3 { font-family:var(--font-display); font-size:1.15rem; font-weight:800; margin-bottom:18px; padding-bottom:12px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; }
+.tech-block h3::before { content:''; width:16px; height:2px; background:var(--accent); flex-shrink:0; }
+
+/* ── PROCESS ── */
+.process-steps { display:flex; flex-direction:column; gap:72px; }
+.ps { display:grid; grid-template-columns:60px 1fr; gap:32px; }
+.ps-num { font-family:var(--font-display); font-size:4rem; font-weight:800; color:var(--border); line-height:1; text-align:center; padding-top:4px; }
+.ps-body h3 { font-family:var(--font-display); font-size:1.5rem; font-weight:800; margin-bottom:8px; letter-spacing:-.3px; }
+.ps-goal-l { font-family:var(--font-mono); font-size:.58rem; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
+.ps-goal-t { font-size:.92rem; color:var(--muted); margin:4px 0 20px; }
+.ps-cards { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:18px 0; }
+.ps-card { position:relative; border-radius:6px; overflow:hidden; cursor:zoom-in; }
+.ps-card img { width:100%; aspect-ratio:16/7; object-fit:cover; }
+.ps-cap { position:absolute; bottom:0; left:0; right:0; background:rgba(13,13,15,.8); padding:6px 12px; font-family:var(--font-mono); font-size:.62rem; color:rgba(255,255,255,.55); }
+.ps-text p { color:var(--muted); font-size:.9rem; line-height:1.8; margin-bottom:12px; }
+.ps-text ul { padding-left:16px; margin-bottom:12px; }
+.ps-text li { color:var(--muted); font-size:.9rem; margin-bottom:7px; }
+.ps-text strong { color:var(--text); }
+
+.lessons-box { background:var(--bg-card); border:1px solid var(--border); border-radius:8px; padding:28px 32px; margin-top:48px; }
+.lessons-box h3 { font-family:var(--font-display); font-size:1.4rem; font-weight:800; color:var(--accent); margin-bottom:20px; }
+.lessons-box ul { list-style:none; padding:0; display:flex; flex-direction:column; gap:10px; }
+.lessons-box li { display:flex; gap:12px; font-size:.92rem; color:var(--muted); }
+.lessons-box li::before { content:'→'; color:var(--accent); flex-shrink:0; }
+.lessons-box p { color:var(--muted); font-size:.9rem; margin-top:16px; }
+
+/* ── FOOTER ── */
+footer { border-top:1px solid var(--border); padding:40px 28px; text-align:center; }
+footer p { font-family:var(--font-mono); font-size:.68rem; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+
+/* ── LIGHTBOX ── */
+#lb { display:none; position:fixed; inset:0; background:rgba(0,0,0,.93); z-index:1000; align-items:center; justify-content:center; padding:24px; }
+#lb.open { display:flex; }
+#lb img { max-width:92vw; max-height:92vh; object-fit:contain; border-radius:6px; }
+#lbx { position:absolute; top:16px; right:22px; background:none; border:none; color:var(--muted); font-size:2.2rem; cursor:pointer; transition:color .2s; }
+#lbx:hover { color:#fff; }
+
+/* ── SCROLL FADE ── */
+.fi { opacity:0; transform:translateY(24px); transition:opacity .6s ease,transform .6s ease; }
+.fi.vis { opacity:1; transform:none; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px) {
+  .page-body { grid-template-columns:1fr; }
+  .sidebar { display:none; }
+  .overview-grid, .hl-block, .hl-block.flip, .beats-wrap, .enemy-grid, .goal-grid { grid-template-columns:1fr; }
+  .hl-block.flip { direction:ltr; }
+  .beats-nav { position:static; flex-direction:row; overflow-x:auto; }
+  .g3, .g4 { grid-template-columns:1fr 1fr; }
+  .ps { grid-template-columns:1fr; }
+  .ps-num { text-align:left; }
+  .ps-cards { grid-template-columns:1fr; }
+}
 </style>
 </head>
 <body>
-<nav class="topnav">
-<div class="topnav-inner">
-<div class="nav-brand">SAI <span>BHARGAV</span></div>
-<div class="nav-links"><a href="index.html">Portfolio</a><a href="about.html">About</a><a href="cv.pdf" target="_blank">CV</a><a href="contact.html" class="cta">Contact</a></div>
+
+<!-- NAV -->
+<nav>
+<div class="nav-inner">
+  <div class="nav-brand">SAI <span>BHARGAV</span></div>
+  <div class="nav-links">
+    <a href="index.html">Portfolio</a>
+    <a href="about.html">About</a>
+    <a href="cv.pdf" target="_blank">CV</a>
+    <a href="contact.html" class="cta">Contact</a>
+  </div>
 </div>
 </nav>
 
+<!-- HERO -->
 <div class="hero">
-<div class="hero-video-bg"><iframe src="https://www.youtube.com/embed/6-pbachAHpE?autoplay=1&mute=1&loop=1&playlist=6-pbachAHpE&controls=0&showinfo=0&rel=0&modestbranding=1" allow="autoplay;encrypted-media"></iframe></div>
-<div class="hero-overlay"></div>
-<div class="hero-content">
-<p class="hero-eyebrow">// Level Design Portfolio</p>
-<h1>OPERATION<br>BLACKOUT<span class="sub">ACT 1 — SURVIVAL &amp; INFILTRATION</span></h1>
-<dl class="meta-grid">
-<div class="meta-cell"><dt>Genre</dt><dd>TPS</dd></div>
-<div class="meta-cell"><dt>Type</dt><dd>Blockout</dd></div>
-<div class="meta-cell"><dt>Engine</dt><dd>Unreal Engine 5</dd></div>
-<div class="meta-cell"><dt>Tools</dt><dd>UE5 · Maya · PS · Premiere</dd></div>
-<div class="meta-cell"><dt>Iterations</dt><dd>7</dd></div>
-<div class="meta-cell"><dt>Playtests</dt><dd>6</dd></div>
-<div class="meta-cell" style="flex:2"><dt>Role</dt><dd>Level Designer — Research · Blockout · Scripting · Narrative · Encounter Design</dd></div>
-</dl>
-<div class="hero-btns">
-<a href="https://drive.google.com/file/d/1DwXBXA0HzN7uZkNHEXErwUaWLLwTORgs/view?usp=sharing" target="_blank" class="btn-primary">↓ Download Playable Build</a>
-<a href="#walkthrough" class="btn-ghost">▶ View Walkthrough</a>
-</div>
-</div>
+  <div class="hero-video-bg">
+    <iframe src="https://www.youtube.com/embed/6-pbachAHpE?autoplay=1&mute=1&loop=1&playlist=6-pbachAHpE&controls=0&showinfo=0&rel=0&modestbranding=1" allow="autoplay;encrypted-media"></iframe>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">// Level Design Portfolio</p>
+    <h1>OPERATION<br>BLACKOUT<span class="sub">ACT 1 — SURVIVAL &amp; INFILTRATION</span></h1>
+    <dl class="meta-strip">
+      <div class="meta-cell"><dt>Genre</dt><dd>TPS</dd></div>
+      <div class="meta-cell"><dt>Type</dt><dd>Blockout</dd></div>
+      <div class="meta-cell"><dt>Engine</dt><dd>Unreal Engine 5</dd></div>
+      <div class="meta-cell"><dt>Tools</dt><dd>UE5 · Maya · PS · Premiere</dd></div>
+      <div class="meta-cell"><dt>Iterations</dt><dd>7</dd></div>
+      <div class="meta-cell"><dt>Playtests</dt><dd>6</dd></div>
+      <div class="meta-cell" style="flex:2"><dt>Role</dt><dd>Level Designer — Research · Blockout · Scripting · Narrative · Encounter Design</dd></div>
+    </dl>
+    <div class="hero-btns">
+      <a href="https://drive.google.com/file/d/1DwXBXA0HzN7uZkNHEXErwUaWLLwTORgs/view?usp=sharing" target="_blank" class="btn-primary">↓ Download Playable Build</a>
+      <a href="#walkthrough" class="btn-ghost">▶ View Walkthrough</a>
+    </div>
+  </div>
 </div>
 
+<!-- PAGE BODY -->
 <div class="page-body">
-<aside class="sidebar">
-<p class="toc-label">Contents</p>
-<ul class="toc-list">
-<li><a href="#goal">Design Goal</a></li>
-<li><a href="#iterations">Iterative Progression</a></li>
-<li><a href="#overview">Level Overview</a></li>
-<li><a href="#hl-narrative" class="toc-sub">↳ Env. Storytelling</a></li>
-<li><a href="#hl-explore" class="toc-sub">↳ Rewarding Exploration</a></li>
-<li><a href="#hl-enemies" class="toc-sub">↳ Enemy Types</a></li>
-<li><a href="#hl-playstyles" class="toc-sub">↳ Multiple Playstyles</a></li>
-<li><a href="#walkthrough">Walkthrough</a></li>
-<li><a href="#techniques">Techniques</a></li>
-<li><a href="#process">Process</a></li>
-</ul>
-</aside>
 
-<main class="main-content">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <p class="toc-heading">Contents</p>
+    <ul class="toc-list">
+      <li><a href="#goal">Design Goal</a></li>
+      <li><a href="#iterations">Iterative Progression</a></li>
+      <li><a href="#overview">Level Overview</a></li>
+      <li><a href="#hl-narrative" class="toc-sub">↳ Env. Storytelling</a></li>
+      <li><a href="#hl-explore" class="toc-sub">↳ Rewarding Exploration</a></li>
+      <li><a href="#hl-enemies" class="toc-sub">↳ Enemy Types</a></li>
+      <li><a href="#hl-playstyles" class="toc-sub">↳ Multiple Playstyles</a></li>
+      <li><a href="#walkthrough">Walkthrough</a></li>
+      <li><a href="#techniques">Techniques</a></li>
+      <li><a href="#process">Process</a></li>
+    </ul>
+  </aside>
 
-<section class="section" id="goal">
-<div class="sec-header"><p class="sec-eyebrow">01</p><h2>Design Goal</h2></div>
-<div class="goal-grid fi">
-<div>
-<p class="bt">My goal for this project was to bring a mix of stealth, action, and investigation — a believable story with emotional stakes like <em>Splinter Cell</em> and <em>Metal Gear Solid 1</em>, combined with <strong>narrative-driven spatial progression</strong>. I wanted every space to feel purposeful — not just visually distinct, but emotionally and mechanically meaningful.</p>
-<p class="bt">The level is structured around a rising emotional arc:</p>
-<div class="arc-callout">Vulnerability → Tension → Loss → Hope → Empowerment</div>
-<p class="bt">My core design goals focused on three interconnected pillars:</p>
-<div class="pillars">
-<div class="pillar">Use <strong>Environmental Storytelling</strong> to drive narrative progression</div>
-<div class="pillar">Provide <strong>Multiple Infiltration Routes</strong> to support player agency</div>
-<div class="pillar">Employ <strong>Escalating Spatial Hierarchy</strong> to reinforce emotional beats</div>
-</div>
-</div>
-<div class="iw"><img class="lb" src="images/Goal.png" alt="Design Goal"/><div class="cap">Design Goal — Inspiration &amp; Reference</div></div>
-</div>
-</section>
+  <main class="main-content">
 
-<section class="section" id="iterations">
-<div class="sec-header"><p class="sec-eyebrow">02</p><h2>Iterative Progression</h2></div>
-<div class="sl">Top View</div>
-<div class="ts fi">
-<img class="lb" src="images/Top view 1.jpeg" alt="Top View 1"/>
-<img class="lb" src="images/Top view 2.png" alt="Top View 2"/>
-<img class="lb" src="images/Top view 3.png" alt="Top View 3"/>
-<img class="lb" src="images/Top view 4.png" alt="Top View 4"/>
-<img class="lb" src="images/Top view 5.png" alt="Top View 5"/>
-<img class="lb" src="images/Top view 6.png" alt="Top View 6"/>
-</div>
-<div class="sl">Barracks</div>
-<div class="as fi" id="sl-b"><div class="at"><img src="images/Barracks 1.png" alt="Barracks 1"/><img src="images/Barracks 2.png" alt="Barracks 2"/><img src="images/Barracks 3.png" alt="Barracks 3"/></div></div>
-<div class="sdots" id="d-b"></div>
-<div class="sl">Parking Lot</div>
-<div class="as fi" id="sl-p"><div class="at"><img src="images/parking lot 1.png" alt="Parking 1"/><img src="images/parking lot 2.png" alt="Parking 2"/><img src="images/parking lot 3.png" alt="Parking 3"/></div></div>
-<div class="sdots" id="d-p"></div>
-</section>
+  <!-- ══════════════════════════════
+       DESIGN GOAL
+  ══════════════════════════════ -->
+  <section class="sec" id="goal">
+    <div class="sec-header">
+      <p class="sec-eyebrow">01</p>
+      <h2>Design Goal</h2>
+    </div>
+    <div class="goal-grid fi" style="display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start">
+      <div>
+        <p class="body-text">My goal for this project was to bring a mix of stealth, action, and investigation — a believable story with emotional stakes like <em>Splinter Cell</em> and <em>Metal Gear Solid 1</em>, combined with <strong>narrative-driven spatial progression</strong>.</p>
+        <p class="body-text">I wanted every space to feel purposeful — not just visually distinct, but emotionally and mechanically meaningful. The level is structured around a rising emotional arc:</p>
+        <div class="insight-box">
+          <p>Vulnerability → Tension → Loss → Hope → Empowerment</p>
+        </div>
+        <p class="body-text" style="margin-top:20px">My core design goals focused on three interconnected pillars:</p>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:12px 16px;font-size:.9rem;display:flex;align-items:flex-start;gap:10px"><span style="color:var(--accent);flex-shrink:0">→</span> Use <strong>Environmental Storytelling</strong> to drive narrative progression</div>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:12px 16px;font-size:.9rem;display:flex;align-items:flex-start;gap:10px"><span style="color:var(--accent);flex-shrink:0">→</span> Provide <strong>Multiple Infiltration Routes</strong> to support player agency</div>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:12px 16px;font-size:.9rem;display:flex;align-items:flex-start;gap:10px"><span style="color:var(--accent);flex-shrink:0">→</span> Employ <strong>Escalating Spatial Hierarchy</strong> to reinforce emotional beats</div>
+        </div>
+      </div>
+      <div class="img-wrap">
+        <img class="lb" src="images/Goal.png" alt="Design Goal"/>
+        <div class="cap">Design Goal — Inspiration &amp; Reference</div>
+      </div>
+    </div>
+  </section>
 
-<section class="section" id="overview">
-<div class="sec-header"><p class="sec-eyebrow">03</p><h2>Level Overview &amp; Highlights</h2></div>
-<div class="og fi">
-<div>
-<div class="ic"><h4>Setting &amp; Tone</h4><p><strong>Setting:</strong> A remote forest concealing a clandestine enemy research facility</p><p><strong>Tone &amp; Mood:</strong> Isolation, tension, dread, rising urgency</p><div class="tr"><span class="tg">Engine: UE5</span><span class="tg">Third-Person Shooter</span><span class="tg">PC</span></div></div>
-<div class="syc"><h4>Synopsis</h4><p class="bt">This level is set in a remote forest where a spec-ops squad is ambushed while approaching a hidden enemy research facility. The player — the sole survivor of the crash — must navigate hostile territory, uncover the truth behind the ambush, and sabotage the facility before the looming danger surfaces.</p></div>
-</div>
-<div><div class="sl" style="margin-top:0">ACT 1 — Mission Objectives</div><div class="iw"><img class="lb" src="images/Mission objectives.png" alt="Mission Objectives"/></div></div>
+  <!-- ══════════════════════════════
+       ITERATIVE PROGRESSION
+  ══════════════════════════════ -->
+  <section class="sec" id="iterations">
+    <div class="sec-header">
+      <p class="sec-eyebrow">02</p>
+      <h2>Iterative Progression</h2>
+      <p>Six iterations showing the evolution from rough sketch to final blockout.</p>
+    </div>
+
+    <!-- Top Views — thumb strip only, click to zoom -->
+    <div class="sub-label">Top View — All Iterations</div>
+    <div class="thumb-grid fi">
+      <img class="lb" src="images/Top view 1.jpeg" alt="Top View 1" title="Iteration 1"/>
+      <img class="lb" src="images/Top view 2.png" alt="Top View 2" title="Iteration 2"/>
+      <img class="lb" src="images/Top view 3.png" alt="Top View 3" title="Iteration 3"/>
+      <img class="lb" src="images/Top view 4.png" alt="Top View 4" title="Iteration 4"/>
+      <img class="lb" src="images/Top view 5.png" alt="Top View 5" title="Iteration 5"/>
+      <img class="lb" src="images/Top view 6.png" alt="Top View 6" title="Iteration 6"/>
+    </div>
+    <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--muted);margin-bottom:36px">Click any thumbnail to enlarge</p>
+
+    <!-- Barracks — carousel -->
+    <div class="sub-label">Barracks</div>
+    <div class="carousel fi" id="car-barracks">
+      <div class="carousel-track">
+        <img src="images/Barracks 1.png" alt="Barracks 1"/>
+        <img src="images/Barracks 2.png" alt="Barracks 2"/>
+        <img src="images/Barracks 3.png" alt="Barracks 3"/>
+      </div>
+      <button class="car-btn prev" data-car="car-barracks">‹</button>
+      <button class="car-btn next" data-car="car-barracks">›</button>
+      <span class="car-counter" id="cnt-car-barracks">1 / 3</span>
+    </div>
+
+    <!-- Parking Lot — carousel -->
+    <div class="sub-label" style="margin-top:36px">Parking Lot</div>
+    <div class="carousel fi" id="car-parking">
+      <div class="carousel-track">
+        <img src="images/parking lot 1.png" alt="Parking 1"/>
+        <img src="images/parking lot 2.png" alt="Parking 2"/>
+        <img src="images/parking lot 3.png" alt="Parking 3"/>
+      </div>
+      <button class="car-btn prev" data-car="car-parking">‹</button>
+      <button class="car-btn next" data-car="car-parking">›</button>
+      <span class="car-counter" id="cnt-car-parking">1 / 3</span>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       LEVEL OVERVIEW
+  ══════════════════════════════ -->
+  <section class="sec" id="overview">
+    <div class="sec-header">
+      <p class="sec-eyebrow">03</p>
+      <h2>Level Overview &amp; Highlights</h2>
+    </div>
+
+    <div class="overview-grid fi">
+      <div>
+        <div class="info-card">
+          <h4>Setting &amp; Tone</h4>
+          <p><strong>Setting:</strong> A remote forest concealing a clandestine enemy research facility</p>
+          <p><strong>Tone &amp; Mood:</strong> Isolation, tension, dread, rising urgency</p>
+          <div class="tag-row">
+            <span class="tag">Engine: UE5</span>
+            <span class="tag">Third-Person Shooter</span>
+            <span class="tag">PC</span>
+          </div>
+        </div>
+        <div class="synopsis-card">
+          <h4>Synopsis</h4>
+          <p class="body-text">A spec-ops squad is ambushed while approaching a hidden enemy research facility. The player — the sole survivor — must navigate hostile territory, uncover the truth, and sabotage the facility before the looming danger surfaces.</p>
+        </div>
+      </div>
+      <div>
+        <div class="sub-label" style="margin-top:0">ACT 1 — Mission Objectives</div>
+        <div class="img-wrap"><img class="lb" src="images/Mission objectives.png" alt="Mission Objectives"/></div>
+      </div>
+    </div>
+
+    <!-- ── HIGHLIGHT: Narrative Storytelling ── -->
+    <div id="hl-narrative" style="margin-bottom:72px">
+      <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:20px">
+        <h3 class="hl-title fi">Narrative-Driven Environment Storytelling</h3>
+      </div>
+      <div class="video-label">Video Overview</div>
+      <div class="video-wrap fi">
+        <iframe src="https://www.youtube.com/embed/uKNvXvX7YjA" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe>
+      </div>
+      <div class="hl-block fi">
+        <div>
+          <!-- carousel for narrative images -->
+          <div class="carousel" id="car-nar">
+            <div class="carousel-track">
+              <img src="images/Narrative-Driven Environment Storytelling 1.png" alt="Storytelling 1"/>
+              <img src="images/Narrative-Driven Environment Storytelling 2.png" alt="Storytelling 2"/>
+              <img src="images/Narrative-Driven Environment Storytelling 3.png" alt="Storytelling 3"/>
+              <img src="images/Narrative-Driven Environment Storytelling 4.png" alt="Storytelling 4"/>
+              <img src="images/Narrative-Driven Environment Storytelling 5.png" alt="Storytelling 5"/>
+            </div>
+            <button class="car-btn prev" data-car="car-nar">‹</button>
+            <button class="car-btn next" data-car="car-nar">›</button>
+            <span class="car-counter" id="cnt-car-nar">1 / 5</span>
+          </div>
+          <div style="margin-top:10px">
+            <img class="img-plain lb" src="images/Top down view of Narrative-Driven Environment Storytelling.png" alt="Narrative top-down"/>
+          </div>
+        </div>
+        <div class="hl-text">
+          <div class="insight-box" style="margin-bottom:16px"><p>Every space should tell a story without a single line of dialogue.</p></div>
+          <ul>
+            <li>Used <strong>environmental storytelling</strong> to make the facility feel alive and reflect its current state.</li>
+            <li>Mixed in <strong>overheard enemy chatter, posters, warning signs, and a cracked mirror</strong> to let the narrative unfold naturally as the player explores.</li>
+            <li>Used <strong>environmental breadcrumbs</strong> — blood trails, stone debris, tree branches, bodies — to deepen immersion.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── HIGHLIGHT: Rewarding Exploration ── -->
+    <div id="hl-explore" style="margin-bottom:72px">
+      <h3 class="hl-title fi">Rewarding Exploration</h3>
+      <div class="video-label">Video Overview</div>
+      <div class="video-wrap fi">
+        <iframe src="https://www.youtube.com/embed/HeyWgIwqaK0" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe>
+      </div>
+      <div class="hl-block flip fi">
+        <div>
+          <div class="carousel" id="car-exp">
+            <div class="carousel-track">
+              <img src="images/Rewarding Exploration 1.png" alt="Exploration 1"/>
+              <img src="images/Rewarding Exploration 2.png" alt="Exploration 2"/>
+              <img src="images/Rewarding Exploration 3.png" alt="Exploration 3"/>
+              <img src="images/Rewarding Exploration 4.png" alt="Exploration 4"/>
+            </div>
+            <button class="car-btn prev" data-car="car-exp">‹</button>
+            <button class="car-btn next" data-car="car-exp">›</button>
+            <span class="car-counter" id="cnt-car-exp">1 / 4</span>
+          </div>
+          <div style="margin-top:10px"><img class="img-plain lb" src="images/Reward exploration top down view map.png" alt="Exploration map"/></div>
+        </div>
+        <div class="hl-text">
+          <div class="insight-box" style="margin-bottom:16px"><p>Exploration must feel rewarded — both narratively and mechanically.</p></div>
+          <ul>
+            <li>Placed hidden and visible rewards throughout to <strong>drive exploration</strong> and give a sense of meaningful discovery.</li>
+            <li><strong>8</strong> Interaction triggers &nbsp;·&nbsp; <strong>4</strong> Audio logs &nbsp;·&nbsp; <strong>4</strong> Ammo &amp; <strong>8</strong> Medical bandage pickups</li>
+            <li>Positioned props to subtly <strong>guide players toward revealing secrets</strong> — lighting contrasts and visual gaps invite exploration.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── HIGHLIGHT: Enemy Types ── -->
+    <div id="hl-enemies" style="margin-bottom:72px">
+      <h3 class="hl-title fi">Enemy Types Overview</h3>
+      <div class="video-label">Video Overview</div>
+      <div class="video-wrap fi">
+        <iframe src="https://www.youtube.com/embed/_LRTAo2yugQ" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe>
+      </div>
+      <div class="insight-box fi" style="margin-bottom:24px">
+        <p>Any guard who detects the player immediately alerts the entire team — creating high-stakes tension and encouraging careful navigation.</p>
+      </div>
+      <div class="enemy-grid fi">
+        <div class="enemy-card"><img src="images/Standby guards.png" alt="Standby Guards"/><div class="ec-body"><div class="ec-role">Type 01</div><h4>Standby Guards</h4><p><strong>Role:</strong> Static sentinels at key choke points. Maintain constant line of sight over important doors and corridors.</p><p class="ec-purpose">Encourage stealth takedowns · Reinforce a tightly controlled facility feel.</p></div></div>
+        <div class="enemy-card"><img src="images/Patrolling guard.png" alt="Patrolling Guards"/><div class="ec-body"><div class="ec-role">Type 02</div><h4>Patrolling Guards</h4><p><strong>Role:</strong> Mobile threats along predefined patrol routes. Catch players who rely on predictable patterns.</p><p class="ec-purpose">Add dynamism · Force players to track movement cycles.</p></div></div>
+        <div class="enemy-card"><img src="images/Enemy workers.png" alt="Enemy Workers"/><div class="ec-body"><div class="ec-role">Type 03</div><h4>Enemy Workers</h4><p><strong>Role:</strong> Non-combat staff who still pose a detection risk. Unarmed but alert — report suspicious activity.</p><p class="ec-purpose">Challenge awareness · Make the environment feel operational.</p></div></div>
+      </div>
+      <div class="img-wrap fi" style="margin-top:10px"><img class="lb" src="images/Enemy Top down view.png" alt="Enemy placement top-down"/></div>
+    </div>
+
+    <!-- ── HIGHLIGHT: Multiple Playstyles ── -->
+    <div id="hl-playstyles" style="margin-bottom:20px">
+      <h3 class="hl-title fi">Supports Multiple Playstyles</h3>
+      <div class="video-label">Video Overview</div>
+      <div class="video-wrap fi">
+        <iframe src="https://www.youtube.com/embed/Mf366lCzZoI" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe>
+      </div>
+      <div class="hl-block fi">
+        <div>
+          <div class="g2" style="margin-bottom:8px">
+            <div class="img-wrap"><img class="lb" src="images/Multiple playstyles 1.png" alt="Left Path"/><div class="cap">Left Path — Ruins Building</div></div>
+            <div class="img-wrap"><img class="lb" src="images/Multiple playstyles 2.png" alt="Right Path"/><div class="cap">Right Path — Rooftop Climb</div></div>
+            <div class="img-wrap sp2"><img class="lb" src="images/Multiple playstyles 3.png" alt="Main Gate"/><div class="cap">Main Gate — Frontal Assault</div></div>
+          </div>
+          <img class="img-plain lb" src="images/Multiple playstyles topdown.png" alt="Playstyle top-down"/>
+        </div>
+        <div class="hl-text">
+          <div class="insight-box" style="margin-bottom:16px"><p>Each path reflects a different mindset — precision, aggression, or survival.</p></div>
+          <ul>
+            <li><strong>Left Path — Collapsed Building:</strong> Tense, grounded route through debris. Lift a fallen door and slip through a fractured fence.</li>
+            <li><strong>Right Path — Rooftop Climb:</strong> Stealthy vertical approach — high exposure, low noise. Ideal for precision and avoidance.</li>
+            <li><strong>Main Gate — Frontal Assault:</strong> Straight through with patrols, cover, and chaos. For players who want to go loud.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       WALKTHROUGH
+  ══════════════════════════════ -->
+  <section class="sec" id="walkthrough">
+    <div class="sec-header">
+      <p class="sec-eyebrow">04</p>
+      <h2>Walkthrough</h2>
+      <p>Beat-by-beat narrative breakdown with embedded video for each section.</p>
+    </div>
+
+    <div class="arc-bar fi">
+      <h4>Narrative Emotional Arc</h4>
+      <div class="arc-steps">
+        <div class="arc-step"><div class="arc-loc">Crash Site</div><div class="arc-emo">Confusion</div></div>
+        <div class="arc-step"><div class="arc-loc">Perimeter Yard</div><div class="arc-emo">Curiosity</div></div>
+        <div class="arc-step"><div class="arc-loc">Ruins / Tower</div><div class="arc-emo">Realization</div></div>
+        <div class="arc-step"><div class="arc-loc">Infiltration</div><div class="arc-emo">Shock</div></div>
+        <div class="arc-step"><div class="arc-loc">Bunkers</div><div class="arc-emo">Impact</div></div>
+      </div>
+    </div>
+
+    <div class="beats-wrap">
+      <div class="beats-nav">
+        <button class="beat-btn on" data-beat="b1"><img src="images/Narrative-Driven Environment Storytelling 1.png" alt=""/><div class="bl"><span class="bnum">Beat 01</span><span class="bname">Awakening After Crash</span></div></button>
+        <button class="beat-btn" data-beat="b2"><img src="images/Narrative-Driven Environment Storytelling 2.png" alt=""/><div class="bl"><span class="bnum">Beat 02</span><span class="bname">Investigating Wreckage</span></div></button>
+        <button class="beat-btn" data-beat="b3"><img src="images/Narrative-Driven Environment Storytelling 3.png" alt=""/><div class="bl"><span class="bnum">Beat 03</span><span class="bname">First Sight of Base</span></div></button>
+        <button class="beat-btn" data-beat="b4"><img src="images/Multiple playstyles topdown.png" alt=""/><div class="bl"><span class="bnum">Beat 04</span><span class="bname">Perimeter Infiltration</span></div></button>
+        <button class="beat-btn" data-beat="b5"><img src="images/parking lot 1.png" alt=""/><div class="bl"><span class="bnum">Beat 05</span><span class="bname">Facility Infiltration</span></div></button>
+        <button class="beat-btn" data-beat="b6"><img src="images/Barracks 1.png" alt=""/><div class="bl"><span class="bnum">Beat 06</span><span class="bname">Commander Suite</span></div></button>
+        <button class="beat-btn" data-beat="b7"><img src="images/Narrative-Driven Environment Storytelling 5.png" alt=""/><div class="bl"><span class="bnum">Beat 07</span><span class="bname">Descent to Bunkers</span></div></button>
+      </div>
+
+      <div>
+        <div class="beat-panel on" id="b1">
+          <div class="bp-num">Beat 01</div><h3>Awakening After the Crash</h3>
+          <div class="bp-pills"><span class="bp-pill bp-emo">Shock &amp; Vulnerability</span><span class="bp-pill bp-gp">Orientation &amp; First Movement</span></div>
+          <div class="video-wrap"><iframe src="https://www.youtube.com/embed/ELg9KnG2eIc" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div>
+          <p>The player wakes alone beside the wreckage, spots a rising smoke plume and a broken rotor blade.</p>
+          <ul class="bp-list"><li>Simple orientation guided by clear environmental cues</li><li>Set the tone, spark mystery, and establish the first objective</li></ul>
+        </div>
+
+        <div class="beat-panel" id="b2">
+          <div class="bp-num">Beat 02</div><h3>Investigating the Wreckage</h3>
+          <div class="bp-pills"><span class="bp-pill bp-emo">Grief &amp; Urgency</span><span class="bp-pill bp-gp">Exploration · Light Traversal</span></div>
+          <div class="video-wrap"><iframe src="https://www.youtube.com/embed/Og4TtBtvCAI" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div>
+          <p>Player finds a dying teammate who reveals the crash was an ambush.</p>
+          <ul class="bp-list"><li>Establishes personal stakes and mission motivation</li><li>Grief and urgency introduced through narrative environmental cues</li></ul>
+        </div>
+
+        <div class="beat-panel" id="b3">
+          <div class="bp-num">Beat 03</div><h3>First Sight of the Enemy Base</h3>
+          <div class="bp-pills"><span class="bp-pill bp-emo">Tension &amp; Dread</span><span class="bp-pill bp-gp">Vista Reveal · Pathfinding</span></div>
+          <div class="video-wrap"><iframe src="https://www.youtube.com/embed/jBH8a6kGffs" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div>
+          <p>Player reaches the cliff edge and sees the hidden facility for the first time.</p>
+          <ul class="bp-list"><li>Establishes the main objective and scale of threat</li><li>Panoramic reveal communicates the challenge ahead</li></ul>
+        </div>
+
+        <div class="beat-panel" id="b4">
+          <div class="bp-num">Beat 04</div><h3>Perimeter Yard Infiltration</h3>
+          <div class="bp-pills"><span class="bp-pill bp-emo">Agency &amp; Tension</span><span class="bp-pill bp-gp">Multi-Route Infiltration</span></div>
+          <div class="video-wrap"><iframe src="https://www.youtube.com/embed/d2N4heUoX-s" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div>
+          <p>First enemy encounter and a cinematic sequence of a truck passing toward the main gate.</p>
+          <div class="bp-note"><strong>Design Note:</strong> Each path reflects a mindset — precision, aggression, or survival — shaping how the player enters the facility.</div>
+          <div class="sub-beats">
+            <button class="sub-btn on" data-sub="b4a">4A — Right Path</button>
+            <button class="sub-btn" data-sub="b4b">4B — Main Gate</button>
+            <button class="sub-btn" data-sub="b4c">4C — Left Path</button>
+          </div>
+          <div class="sub-panel on" id="b4a"><div class="video-wrap"><iframe src="https://www.youtube.com/embed/EBji8JyOdlI" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="margin-top:8px">A quiet vertical approach — dragging a bin to reach the roof. High exposure, low noise. Ideal for players who prefer slipping past danger.</p></div>
+          <div class="sub-panel" id="b4b"><div class="video-wrap"><iframe src="https://www.youtube.com/embed/E5hgTYw0BXY" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="margin-top:8px">The loudest option. Direct conflict with patrols, cover-to-cover movement, and chaos.</p></div>
+          <div class="sub-panel" id="b4c"><div class="video-wrap"><iframe src="https://www.youtube.com/embed/Ct-r2q6Qiik" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="margin-top:8px">A grounded, tense route through debris — lifting a fallen door and squeezing through a fractured fence.</p></div>
+        </div>
+
+        <div class="beat-panel" id="b5">
+          <div class="bp-num">Beat 05</div><h3>Facility Infiltration</h3>
+          <div class="bp-pills"><span class="bp-pill bp-emo">Scale · Rising Tension</span><span class="bp-pill bp-gp">Navigation · Patrol Awareness</span></div>
+          <div class="sub-beats">
+            <button class="sub-btn on" data-sub="b5a1">5A-1 Parking Lot</button>
+            <button class="sub-btn" data-sub="b5a2">5A-2 CCTV Room</button>
+            <button class="sub-btn" data-sub="b5b">5B Barracks</button>
+            <button class="sub-btn" data-sub="b5b1">5B-1 Guard Tower</button>
+            <button class="sub-btn" data-sub="b5b2">5B-2 Dorm</button>
+            <button class="sub-btn" data-sub="b5b3">5B-3 Armory</button>
+          </div>
+          <div class="sub-panel on" id="b5a1"><div class="video-wrap"><iframe src="https://www.youtube.com/embed/l2RP6aZXRBw" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="margin-top:8px">Crates labelled "Field test pending." Enemy chatter provides stealth clues. A whiteboard schedule reveals truths about the facility.</p><div class="insight-box" style="margin-top:12px"><p>"Something sinister is happening underground."</p></div></div>
+          <div class="sub-panel" id="b5a2"><div class="video-wrap"><iframe src="https://www.youtube.com/embed/Cj-RZm9yK9E" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="margin-top:8px">CCTV feeds show a scientist escorted underground and a wounded soldier. Terminal logs confirm restricted access and the Commander's involvement.</p></div>
+          <div class="sub-panel" id="b5b"><p style="margin-top:8px">The barracks tell the story through whiteboards, radio logs, half-packed gear, tactical maps, and interactive investigation — communicating that the squad's ambush was intentional. This area is designed to reward exploration and slow the pacing before the emotional drop in the bunkers.</p></div>
+          <div class="sub-panel" id="b5b1"><div class="video-wrap"><iframe src="https://www.youtube.com/embed/KySgBTmqX-I" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="margin-top:8px">Player gains a vantage point, spots Bunker K04, realises it's locked but active. Establishes K04 as the infiltration target and teases access requirements.</p></div>
+          <div class="sub-panel" id="b5b2"><div class="video-wrap"><iframe src="https://www.youtube.com/embed/GMrw3pl9564" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="margin-top:8px">Personal effects, signs of stress, and a letter about a scientist moved to containment — humanising the enemy and revealing interrogations tied to Isha.</p></div>
+          <div class="sub-panel" id="b5b3"><div class="video-wrap"><iframe src="https://www.youtube.com/embed/f99aSpahQxc" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="margin-top:8px">Crates marked for field tests, dead personnel, and illegal containment tech. Foreshadows biohazard threats and unstable prototype experiments.</p></div>
+        </div>
+
+        <div class="beat-panel" id="b6">
+          <div class="bp-num">Beat 06</div><h3>Commander Suite Access</h3>
+          <div class="bp-pills"><span class="bp-pill bp-emo">Determination · Rising Dread</span><span class="bp-pill bp-gp">Terminal Interaction · Intel</span></div>
+          <div class="video-wrap"><iframe src="https://www.youtube.com/embed/QHRrz7-B8y0" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div>
+          <p>The player enters the Commander's Suite, discovers the K04 access terminal, and witnesses a briefing room draped with a <strong>"PROJECT DAWN"</strong> banner.</p>
+          <ul class="bp-list"><li>Officer mid-speech outlining the urgency of bringing the scientist into compliance</li><li>Player overhears lines tying Isha to the project and confirming the facility's true purpose</li></ul>
+        </div>
+
+        <div class="beat-panel" id="b7">
+          <div class="bp-num">Beat 07</div><h3>Descent into the Bunkers</h3>
+          <div class="bp-pills"><span class="bp-pill bp-emo">Fear &amp; Claustrophobia</span><span class="bp-pill bp-gp">Tight Corridors · Close-Quarters</span></div>
+          <div class="video-wrap"><iframe src="https://www.youtube.com/embed/Z8Y6n5xmAdo" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div>
+          <p>Player descends to the bunkers. The story uncovers in Act 2.</p>
+          <ul class="bp-list"><li>Emotional low point — tight corridors, close-quarters encounters</li><li>To be continued in Act 2...</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="topdown fi">
+      <h4>Top-Down View of Beats</h4>
+      <img class="lb" src="images/Top down view of beats with numbers.png" alt="Top-down beat map"/>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       TECHNIQUES
+  ══════════════════════════════ -->
+  <section class="sec" id="techniques">
+    <div class="sec-header">
+      <p class="sec-eyebrow">05</p>
+      <h2>Techniques</h2>
+      <p>Level design tools and methods applied throughout the project.</p>
+    </div>
+
+    <!-- Breadcrumbs -->
+    <div class="tech-block fi">
+      <h3>Use Breadcrumbs to Guide Players</h3>
+      <div class="g3">
+        <div class="img-wrap"><img class="lb" src="images/Breadcrumbs 1.png" alt="Breadcrumbs 1"/><div class="cap">Scattered stone debris as a natural breadcrumb trail leading the player toward the hidden entrance.</div></div>
+        <div class="img-wrap"><img class="lb" src="images/Breadcrumbs 2.png" alt="Breadcrumbs 2"/><div class="cap">Subtle blood traces on the floor guide attention toward the location of dead bodies and the next point of interest.</div></div>
+        <div class="img-wrap"><img class="lb" src="images/Breadcrumbs 3.png" alt="Breadcrumbs 3"/><div class="cap">Fallen tree branches guide the player toward the intended pathway leading into the facility.</div></div>
+      </div>
+    </div>
+
+    <!-- POI -->
+    <div class="tech-block fi">
+      <h3>Points of Interest (POI)</h3>
+      <div class="img-wrap"><img class="lb" src="images/Points of Interest 1.png" alt="POI"/><div class="cap">A barren tree draws the player's eye amid surrounding greenery, while the yellow building and tower's blinking light serve as strong visual anchors.</div></div>
+    </div>
+
+    <!-- Affordances -->
+    <div class="tech-block fi">
+      <h3>Affordances</h3>
+      <div class="g2">
+        <div class="img-wrap"><img class="lb" src="images/Affordances 1.png" alt="Affordances 1"/><div class="cap">The flashing light toward the yellow edge communicates the building is climbable — using the same yellow convention many games use for traversal.</div></div>
+        <div class="img-wrap"><img class="lb" src="images/Affordances 2.png" alt="Affordances 2"/><div class="cap">Same visual-guidance technique applied to a small environmental puzzle — pull the object close and use it as a step to progress.</div></div>
+      </div>
+    </div>
+
+    <!-- Landmarks — carousel -->
+    <div class="tech-block fi">
+      <h3>Landmarks</h3>
+      <div class="carousel" id="car-lm">
+        <div class="carousel-track">
+          <img src="images/Landmark 1.png" alt="Landmark 1"/>
+          <img src="images/Landmark 2.png" alt="Landmark 2"/>
+          <img src="images/Landmark 3.png" alt="Landmark 3"/>
+          <img src="images/Landmark 4.png" alt="Landmark 4"/>
+          <img src="images/Landmark 5.png" alt="Landmark 5"/>
+          <img src="images/Landmark 6.png" alt="Landmark 6"/>
+          <img src="images/Landmark 7.png" alt="Landmark 7"/>
+        </div>
+        <button class="car-btn prev" data-car="car-lm">‹</button>
+        <button class="car-btn next" data-car="car-lm">›</button>
+        <span class="car-counter" id="cnt-car-lm">1 / 7</span>
+      </div>
+      <p class="car-caption">A central structure anchors the player's orientation — visible from anywhere, helping maintain spatial awareness intuitively.</p>
+    </div>
+
+    <!-- Environmental Storytelling — collapsible with 3-col grid -->
+    <div class="tech-block fi">
+      <h3>Environmental Storytelling</h3>
+      <div class="collapsible open" id="coll-env">
+        <div class="coll-header" onclick="toggleColl('coll-env')">
+          <span class="coll-title">6 storytelling moments — click to expand / collapse</span>
+          <span class="coll-arrow">▼</span>
+        </div>
+        <div class="coll-body">
+          <div class="g3">
+            <div class="img-wrap"><img class="lb" src="images/Environmental Storytelling 1.png" alt="ES 1"/><div class="cap">Lab space marked by bloodstains, fallen bodies, and prisoner graffiti — conveying a sudden violent outbreak.</div></div>
+            <div class="img-wrap"><img class="lb" src="images/Environmental Storytellin 2.png" alt="ES 2"/><div class="cap">Cramped dorm with scattered papers and a broken mirror showing stress and declining morale.</div></div>
+            <div class="img-wrap"><img class="lb" src="images/Environmental Storytelling 3.png" alt="ES 3"/><div class="cap">Sealed bunker entrance with warning signs, red lighting, and barricades suggesting emergency lockdown.</div></div>
+            <div class="img-wrap"><img class="lb" src="images/Environmental Storytelling 4.png" alt="ES 4"/><div class="cap">Monitoring station establishing the facility's hierarchy and surveillance culture.</div></div>
+            <div class="img-wrap"><img class="lb" src="images/Environmental Storytelling 5.png" alt="ES 5"/><div class="cap">Work zone with "Project Dawn" labels foreshadowing instability around the prototype.</div></div>
+            <div class="img-wrap"><img class="lb" src="images/Environmental Storytelling 6.png" alt="ES 6"/><div class="cap">Storage area with shift-reminder poster and audio-log terminal reinforcing rising security concerns.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contrast & Composition — carousel -->
+    <div class="tech-block fi">
+      <h3>Contrast &amp; Composition</h3>
+      <div class="carousel" id="car-cc">
+        <div class="carousel-track">
+          <img src="images/Contrast & Composition 1.png" alt="Contrast 1"/>
+          <img src="images/Contrast & Composition 2.png" alt="Contrast 2"/>
+          <img src="images/Contrast & Composition 3.png" alt="Contrast 3"/>
+        </div>
+        <button class="car-btn prev" data-car="car-cc">‹</button>
+        <button class="car-btn next" data-car="car-cc">›</button>
+        <span class="car-counter" id="cnt-car-cc">1 / 3</span>
+      </div>
+      <p class="car-caption"><em>Light, shadow, and color are used to emphasise important gameplay areas or objects.</em></p>
+    </div>
+
+    <!-- Spatial Composition -->
+    <div class="tech-block fi">
+      <h3>Spatial Composition</h3>
+      <div class="img-wrap"><img class="lb" src="images/Spatial Composition 1.png" alt="Spatial Composition"/><div class="cap">Additional side paths added to encourage exploration, offering loot or narrative elements.</div></div>
+    </div>
+
+    <!-- Framing & Leading Lines -->
+    <div class="tech-block fi">
+      <h3>Framing &amp; Leading Lines</h3>
+      <div class="g2">
+        <div class="img-wrap"><img class="lb" src="images/Framing and Leading lines 1.png" alt="Framing 1"/><div class="cap">Highlighted stairs and directional edges form clear leading lines communicating the intended movement path.</div></div>
+        <div class="img-wrap"><img class="lb" src="images/Framing and Leading lines 2.png" alt="Framing 2"/><div class="cap">Corridor's converging lines frame the bright exit, naturally pulling the player toward the open space.</div></div>
+        <div class="img-wrap"><img class="lb" src="images/Framing and Leading lines 3.png" alt="Framing 3"/><div class="cap">Leading lines from path, terrain, and fencing guide the player's eye toward the command-centre entrance.</div></div>
+        <div class="img-wrap"><img class="lb" src="images/Framing and Leading lines 4.png" alt="Framing 4"/><div class="cap">Terrain slopes and tree placement frame the structure, creating a clear visual funnel toward the tower.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════
+       PROCESS
+  ══════════════════════════════ -->
+  <section class="sec" id="process">
+    <div class="sec-header">
+      <p class="sec-eyebrow">06</p>
+      <h2>Process</h2>
+      <p>Seven iterations from concept to refined blockout.</p>
+    </div>
+
+    <div class="process-steps">
+
+      <div class="ps fi">
+        <div class="ps-num">1</div>
+        <div class="ps-body">
+          <h3>Research, Ideation &amp; Planning</h3>
+          <div class="ps-goal-l">Goal</div>
+          <div class="ps-goal-t">Develop a strong, fully formed level concept from the ground up.</div>
+          <div class="ps-cards">
+            <div class="ps-card"><img class="lb" src="images/Miro board.jpg" alt="Miro board"/><div class="ps-cap">Brainstorm board (Miro)</div></div>
+            <div class="ps-card"><img class="lb" src="images/Concept Document.png" alt="Concept Document"/><div class="ps-cap">Concept Document</div></div>
+            <div class="ps-card" style="grid-column:1/-1"><img class="lb" src="images/MAP flowchart.png" alt="Map Flowchart"/><div class="ps-cap">Map Flowchart</div></div>
+          </div>
+          <div class="ps-text">
+            <ul>
+              <li>Used Miro to explore ideas across key categories: setting, locations, events, enemies, and mechanics</li>
+              <li>Had other level designers <strong>vote</strong> on favourite concepts to highlight the most promising directions</li>
+              <li>Built an initial <strong>concept document</strong> outlining location vision, player objectives, and core gameplay loop</li>
+              <li>Collected <strong>visual references</strong> to establish intended atmosphere, tone, and environmental style</li>
+            </ul>
+            <p><strong>Outcome:</strong> My mentor recommended breaking the concept into smaller pieces. I divided the full level into three acts and focused on <strong>Act 1</strong> first — built around three major areas: Crash Site &amp; Enemy Outpost, Perimeter Yard, and Facility Interior leading into the Bunkers.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ps fi">
+        <div class="ps-num">2</div>
+        <div class="ps-body">
+          <h3>Game Beats &amp; 2D Map</h3>
+          <div class="ps-goal-l">Goal</div>
+          <div class="ps-goal-t">Shape the gameplay rhythm and environmental flow; develop a 2D layout map and LDD.</div>
+          <div class="ps-cards">
+            <div class="ps-card"><img class="lb" src="images/Designer notes.png" alt="Designer Notes"/><div class="ps-cap">Designer Notes</div></div>
+            <div class="ps-card"><img class="lb" src="images/Game bits excel.png" alt="Game Beats"/><div class="ps-cap">Game Beats Spreadsheet</div></div>
+            <div class="ps-card"><img class="lb" src="images/Game bits excel part 2.png" alt="Game Beats 2"/><div class="ps-cap">Game Beats Part 2</div></div>
+          </div>
+          <!-- Env cues — collapsible -->
+          <div class="collapsible" id="coll-env-cues" style="margin:16px 0">
+            <div class="coll-header" onclick="toggleColl('coll-env-cues')">
+              <span class="coll-title">Environmental Cues — 4 diagrams</span>
+              <span class="coll-arrow">▼</span>
+            </div>
+            <div class="coll-body">
+              <div class="g4">
+                <div class="ps-card"><img class="lb" src="images/Envirnoment Cue's 1.png" alt="Env 1"/></div>
+                <div class="ps-card"><img class="lb" src="images/Envirnoment Cue's 2.png" alt="Env 2"/></div>
+                <div class="ps-card"><img class="lb" src="images/Envirnoment Cue's 3.png" alt="Env 3"/></div>
+                <div class="ps-card"><img class="lb" src="images/Envirnoment Cue's 4.png" alt="Env 4"/></div>
+              </div>
+            </div>
+          </div>
+          <div class="ps-cards">
+            <div class="ps-card"><img class="lb" src="images/Intensity graph 1.png" alt="IG 1"/><div class="ps-cap">Intensity Graph V.1</div></div>
+            <div class="ps-card"><img class="lb" src="images/Intensity graph 2.png" alt="IG 2"/><div class="ps-cap">Intensity Graph V.2</div></div>
+            <div class="ps-card"><img class="lb" src="images/Intensity graph 3.png" alt="IG 3"/><div class="ps-cap">Intensity Graph V.3</div></div>
+            <div class="ps-card"><img class="lb" src="images/2D layout.png" alt="2D Layout"/><div class="ps-cap">2D Layout Map</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ps fi">
+        <div class="ps-num">3</div>
+        <div class="ps-body">
+          <h3>First Roughout</h3>
+          <div class="ps-goal-l">Goal</div>
+          <div class="ps-goal-t">Build a functional, testable version of the level as quickly as possible.</div>
+          <div class="ps-cards">
+            <div class="ps-card" style="grid-column:1/-1"><img class="lb" src="images/Pure ref board.png" alt="PureRef Board"/><div class="ps-cap">PureRef Board</div></div>
+          </div>
+          <div class="carousel" id="car-ro" style="margin:12px 0">
+            <div class="carousel-track">
+              <img src="images/Slide image 1.png" alt="Roughout 1"/>
+              <img src="images/Slide image 2.png" alt="Roughout 2"/>
+              <img src="images/Slide image 3.png" alt="Roughout 3"/>
+              <img src="images/Slide image 4.png" alt="Roughout 4"/>
+            </div>
+            <button class="car-btn prev" data-car="car-ro">‹</button>
+            <button class="car-btn next" data-car="car-ro">›</button>
+            <span class="car-counter" id="cnt-car-ro">1 / 4</span>
+          </div>
+          <div class="ps-text">
+            <ul>
+              <li>Shifted 2D layout into UE5 and constructed environment using simple block-out geometry</li>
+              <li>Iterated in play mode to assess navigation, sightlines, and gameplay flow</li>
+              <li>Implemented placeholder enemies, NPCs, and loot to simulate intended gameplay structure</li>
+            </ul>
+            <p><strong>Result:</strong> The level reached a fully playable state early. Core gameplay loop — exploration, reward discovery, story progression — was clearly communicated despite minimal visuals.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ps fi">
+        <div class="ps-num">4</div>
+        <div class="ps-body">
+          <h3>Iterating the Roughout</h3>
+          <div class="ps-goal-l">Goal</div>
+          <div class="ps-goal-t">Transform the Crash Site and Perimeter Yard into a cohesive, immersive opening sequence.</div>
+          <div class="ps-cards">
+            <div class="ps-card"><img class="lb" src="images/Iterating the Roughout 1.png" alt="IR 1"/></div>
+            <div class="ps-card"><img class="lb" src="images/Iterating the Roughout 2.png" alt="IR 2"/></div>
+            <div class="ps-card"><img class="lb" src="images/Iterating the Roughout 3.png" alt="IR 3"/></div>
+          </div>
+          <div class="ps-text">
+            <ul>
+              <li>Redesigned Crash Site to open with a short cinematic, panoramic reveal, and title card</li>
+              <li>Replaced cut-down fence with a small environmental puzzle supported by breadcrumbs</li>
+              <li>Introduced an early jump challenge using a broken cliff edge leading to the first enemy encounter</li>
+              <li>Refined lighting and sky atmosphere · Switched Game Mode to ALS</li>
+            </ul>
+            <p><strong>Result:</strong> The introduction now feels alive, intentional, and narratively cohesive.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="ps fi">
+        <div class="ps-num">5</div>
+        <div class="ps-body">
+          <h3>Moving to the Blockout</h3>
+          <div class="ps-goal-l">Goal</div>
+          <div class="ps-goal-t">Address spaces lacking spatial depth, player guidance, and purposeful interactions.</div>
+          <div class="ps-cards">
+            <div class="ps-card"><img class="lb" src="images/Moving to blockout 1.png" alt="MB 1"/></div>
+            <div class="ps-card"><img class="lb" src="images/Moving to blockout 2.png" alt="MB 2"/></div>
+            <div class="ps-card"><img class="lb" src="images/Moving to blockout 3.png" alt="MB 3"/></div>
+            <div class="ps-card"><img class="lb" src="images/Moving to blockout 4.png" alt="MB 4"/></div>
+          </div>
+          <div class="ps-text">
+            <ul>
+              <li>Introduced a <strong>tall landmark structure</strong> with distinctively coloured pillars as a strong visual anchor</li>
+              <li>Fixed a sequence break where players could miss key Commander Suite story beats</li>
+              <li>Expanded dormitory into two floors — Dorm A (golden path) and Dorm B (optional exploration)</li>
+              <li>Redesigned the Armory for improved pacing, combat readability, and cover placement</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="ps fi">
+        <div class="ps-num">6</div>
+        <div class="ps-body">
+          <h3>Iterating the Blockout</h3>
+          <div class="ps-goal-l">Goal</div>
+          <div class="ps-goal-t">Finalise tutorial encounter; polish Right-Side areas and Parking Lot; begin lighting and post-processing.</div>
+          <div class="carousel" id="car-ib" style="margin-bottom:16px">
+            <div class="carousel-track">
+              <img src="images/Iterating the blockout 1.png" alt="IB 1"/>
+              <img src="images/Iterating the blockout 2.png" alt="IB 2"/>
+              <img src="images/Iterating the blockout 3.png" alt="IB 3"/>
+              <img src="images/Iterating the blockout 4.png" alt="IB 4"/>
+              <img src="images/Iterating the blockout 5.png" alt="IB 5"/>
+            </div>
+            <button class="car-btn prev" data-car="car-ib">‹</button>
+            <button class="car-btn next" data-car="car-ib">›</button>
+            <span class="car-counter" id="cnt-car-ib">1 / 5</span>
+          </div>
+          <div class="ps-text">
+            <ul>
+              <li>Moved first enemy encounter to cliff edge to give the player a breather</li>
+              <li>Reworked parking lot with stealth traversal props, attention-guiding lighting, and Blueprint interactions</li>
+              <li>Colour-coded non-interactive props in neutral grey to reduce visual noise</li>
+              <li>Introduced post-processing to reinforce an oppressive mood</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="ps fi">
+        <div class="ps-num">7</div>
+        <div class="ps-body">
+          <h3>Refining the Blockout</h3>
+          <div class="ps-goal-l">Goal</div>
+          <div class="ps-goal-t">Deepen the Armory Annex and Entrance to Security Command Center — improving pacing, verticality, and environmental storytelling.</div>
+          <!-- Before/After pairs using carousel -->
+          <div class="collapsible open" id="coll-ref">
+            <div class="coll-header" onclick="toggleColl('coll-ref')">
+              <span class="coll-title">Screenshots &amp; GIFs — 7 assets</span>
+              <span class="coll-arrow">▼</span>
+            </div>
+            <div class="coll-body">
+              <div class="carousel" id="car-ref">
+                <div class="carousel-track">
+                  <img src="images/Refining the blockout 1.png" alt="Refining 1"/>
+                  <img src="images/Refining the blockout GIF 1.gif" alt="Cinematic truck entry"/>
+                  <img src="images/Refining the blockout 2.png" alt="Refining 2"/>
+                  <img src="images/Refining the blockout GIF 2.gif" alt="Animation preview"/>
+                  <img src="images/Refining the blockout 3.png" alt="Refining 3"/>
+                  <img src="images/Refining the blockout GIF 3.gif" alt="Animation preview"/>
+                  <img src="images/Refining the blockout 4.png" alt="Refining 4"/>
+                </div>
+                <button class="car-btn prev" data-car="car-ref">‹</button>
+                <button class="car-btn next" data-car="car-ref">›</button>
+                <span class="car-counter" id="cnt-car-ref">1 / 7</span>
+              </div>
+            </div>
+          </div>
+          <div class="ps-text" style="margin-top:16px">
+            <ul>
+              <li>Added a <strong>truck entry set piece</strong> using motion and composition as leading lines toward the main entrance</li>
+              <li>Expanded Armory Annex to allow foreshadowing of the scene and different approaches</li>
+              <li>Replaced a hard-to-find ladder with a rounded staircase supported by leading lines and targeted lighting</li>
+              <li>Container corridor features a broken entry point foreshadowing the storage complex beneath the Security Command Center</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /process-steps -->
+
+    <div class="lessons-box fi">
+      <h3>Key Design Lessons</h3>
+      <ul>
+        <li>Emotional pacing is as important as mechanical pacing.</li>
+        <li>Environmental storytelling can carry narrative weight without cutscenes.</li>
+        <li>Spatial hierarchy naturally guides player expectations.</li>
+        <li>Every area should answer "Why does this exist?"</li>
+      </ul>
+      <p>This project helped me refine my ability to blend narrative and gameplay into a cohesive experience.</p>
+    </div>
+  </section>
+
+  </main>
 </div>
 
-<div id="hl-narrative" class="fi" style="margin-bottom:60px">
-<h3 class="hlh">Narrative-Driven Environment Storytelling</h3>
-<div class="vl">Video Overview</div>
-<div class="ve"><iframe src="https://www.youtube.com/embed/uKNvXvX7YjA" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div>
-<div class="hlb">
-<div><div class="arsl" id="hl-n"><div class="artr"><img src="images/Narrative-Driven Environment Storytelling 1.png" alt=""/><img src="images/Narrative-Driven Environment Storytelling 2.png" alt=""/><img src="images/Narrative-Driven Environment Storytelling 3.png" alt=""/><img src="images/Narrative-Driven Environment Storytelling 4.png" alt=""/><img src="images/Narrative-Driven Environment Storytelling 5.png" alt=""/></div><button class="ab prev" data-sl="hl-n">‹</button><button class="ab next" data-sl="hl-n">›</button></div><div style="margin-top:8px"><img class="ip lb" src="images/Top down view of Narrative-Driven Environment Storytelling.png" alt="Narrative top-down"/></div></div>
-<div class="hlt"><ul><li>Used <strong>environmental storytelling</strong> to create a world that feels alive and reflects the enemy facility's current state.</li><li>Mixed in <strong>overheard enemy chatter, posters, warning signs, and a cracked mirror</strong> to give the world personality as the player explores.</li><li>Used <strong>environmental breadcrumbs</strong> — blood trails, stone debris, tree branches, bodies — to deepen immersion.</li></ul></div>
-</div>
-</div>
+<footer>
+  <p>All rights reserved &nbsp;·&nbsp; Sai Bhargav &nbsp;·&nbsp; <span id="yr"></span></p>
+</footer>
 
-<div id="hl-explore" class="fi" style="margin-bottom:60px">
-<h3 class="hlh">Rewarding Exploration</h3>
-<div class="vl">Video Overview</div>
-<div class="ve"><iframe src="https://www.youtube.com/embed/HeyWgIwqaK0" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div>
-<div class="hlb flip">
-<div><div class="arsl" id="hl-e"><div class="artr"><img src="images/Rewarding Exploration 1.png" alt=""/><img src="images/Rewarding Exploration 2.png" alt=""/><img src="images/Rewarding Exploration 3.png" alt=""/><img src="images/Rewarding Exploration 4.png" alt=""/></div><button class="ab prev" data-sl="hl-e">‹</button><button class="ab next" data-sl="hl-e">›</button></div><div style="margin-top:8px"><img class="ip lb" src="images/Reward exploration top down view map.png" alt="Exploration map"/></div></div>
-<div class="hlt"><ul><li>Placed hidden and visible rewards throughout to <strong>drive exploration</strong> and give players a sense of meaningful discovery.</li><li><strong>8</strong> Interaction triggers · <strong>4</strong> Audio logs · <strong>4</strong> Ammo &amp; <strong>8</strong> Medical bandage pickups</li><li>Positioned props to subtly <strong>guide players toward revealing secrets</strong> about the facility.</li></ul></div>
-</div>
-</div>
-
-<div id="hl-enemies" class="fi" style="margin-bottom:60px">
-<h3 class="hlh">Enemy Types Overview</h3>
-<div class="vl">Video Overview</div>
-<div class="ve"><iframe src="https://www.youtube.com/embed/_LRTAo2yugQ" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div>
-<p class="bt">Any guard who detects the player immediately alerts the entire team — creating high-stakes tension and encouraging careful navigation.</p>
-<div class="eg">
-<div class="ec"><img src="images/Standby guards.png" alt="Standby Guards"/><div class="ecb"><div class="ecr">Type 01</div><h4>Standby Guards</h4><p><strong>Role:</strong> Static sentinels at key choke points. Maintain constant line of sight over important doors and corridors.</p><p class="ecp">Encourage stealth takedowns · Reinforce a tightly controlled facility feel.</p></div></div>
-<div class="ec"><img src="images/Patrolling guard.png" alt="Patrolling Guards"/><div class="ecb"><div class="ecr">Type 02</div><h4>Patrolling Guards</h4><p><strong>Role:</strong> Mobile threats along predefined patrol routes. Designed to catch players who rely on predictable patterns.</p><p class="ecp">Add dynamism · Force players to track movement cycles.</p></div></div>
-<div class="ec"><img src="images/Enemy workers.png" alt="Enemy Workers"/><div class="ecb"><div class="ecr">Type 03</div><h4>Enemy Workers</h4><p><strong>Role:</strong> Non-combat staff who still pose a detection risk. Unarmed but alert — report suspicious activity to guards.</p><p class="ecp">Challenge awareness · Make the environment feel operational.</p></div></div>
-</div>
-<img class="ip lb" src="images/Enemy Top down view.png" alt="Enemy placement top-down" style="margin-top:10px"/>
-</div>
-
-<div id="hl-playstyles" class="fi" style="margin-bottom:20px">
-<h3 class="hlh">Supports Multiple Playstyles</h3>
-<div class="vl">Video Overview</div>
-<div class="ve"><iframe src="https://www.youtube.com/embed/Mf366lCzZoI" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div>
-<div class="hlb">
-<div><div class="g2" style="margin-bottom:8px"><div class="iw"><img class="lb" src="images/Multiple playstyles 1.png" alt="Left Path"/><div class="cap">Left Path — Ruins Building</div></div><div class="iw"><img class="lb" src="images/Multiple playstyles 2.png" alt="Right Path"/><div class="cap">Right Path — Rooftop Climb</div></div><div class="iw sp2"><img class="lb" src="images/Multiple playstyles 3.png" alt="Main Gate"/><div class="cap">Main Gate — Frontal Assault</div></div></div><img class="ip lb" src="images/Multiple playstyles topdown.png" alt="Playstyle top-down"/></div>
-<div class="hlt"><ul><li><strong>Left Path — Collapsed Building:</strong> Tense, grounded route through debris. Lift a fallen door and slip through a fractured fence.</li><li><strong>Right Path — Rooftop Climb:</strong> Stealthy vertical approach — high exposure, low noise.</li><li><strong>Main Gate — Frontal Assault:</strong> Straight through with patrols, cover, and chaos. For players who want to go loud.</li></ul></div>
-</div>
-</div>
-</section>
-
-<section class="section" id="walkthrough">
-<div class="sec-header"><p class="sec-eyebrow">04</p><h2>Walkthrough</h2></div>
-<div class="arcb fi"><h4>Narrative Emotional Arc</h4><div class="arcs"><div class="arcs-step"><div class="asl">Crash Site</div><div class="ase">Confusion</div></div><div class="arcs-step"><div class="asl">Perimeter Yard</div><div class="ase">Curiosity</div></div><div class="arcs-step"><div class="asl">Ruins / Tower</div><div class="ase">Realization</div></div><div class="arcs-step"><div class="asl">Infiltration</div><div class="ase">Shock</div></div><div class="arcs-step"><div class="asl">Bunkers</div><div class="ase">Impact</div></div></div></div>
-<div class="bw">
-<div class="bn">
-<button class="bb on" data-beat="b1"><img src="images/Narrative-Driven Environment Storytelling 1.png" alt=""/><div class="bl"><span class="bnum">Beat 01</span><span class="bname">Awakening After Crash</span></div></button>
-<button class="bb" data-beat="b2"><img src="images/Narrative-Driven Environment Storytelling 2.png" alt=""/><div class="bl"><span class="bnum">Beat 02</span><span class="bname">Investigating Wreckage</span></div></button>
-<button class="bb" data-beat="b3"><img src="images/Narrative-Driven Environment Storytelling 3.png" alt=""/><div class="bl"><span class="bnum">Beat 03</span><span class="bname">First Sight of Base</span></div></button>
-<button class="bb" data-beat="b4"><img src="images/Multiple playstyles topdown.png" alt=""/><div class="bl"><span class="bnum">Beat 04</span><span class="bname">Perimeter Infiltration</span></div></button>
-<button class="bb" data-beat="b5"><img src="images/parking lot 1.png" alt=""/><div class="bl"><span class="bnum">Beat 05</span><span class="bname">Facility Infiltration</span></div></button>
-<button class="bb" data-beat="b6"><img src="images/Barracks 1.png" alt=""/><div class="bl"><span class="bnum">Beat 06</span><span class="bname">Commander Suite</span></div></button>
-<button class="bb" data-beat="b7"><img src="images/Narrative-Driven Environment Storytelling 5.png" alt=""/><div class="bl"><span class="bnum">Beat 07</span><span class="bname">Descent to Bunkers</span></div></button>
-</div>
-<div>
-<div class="bp on" id="b1"><div class="bpn">Beat 01</div><h3>Awakening After the Crash</h3><div class="bpp"><span class="bppl bpe">Shock &amp; Vulnerability</span><span class="bppl bpg">Orientation &amp; First Movement</span></div><div class="ve"><iframe src="https://www.youtube.com/embed/ELg9KnG2eIc" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><div class="bpb"><p>The player wakes alone beside the wreckage, spots a rising smoke plume and a broken rotor blade.</p><ul class="bpl"><li>Simple orientation guided by clear environmental cues</li><li>Set the tone, spark mystery, establish the first objective</li></ul></div></div>
-<div class="bp" id="b2"><div class="bpn">Beat 02</div><h3>Investigating the Wreckage</h3><div class="bpp"><span class="bppl bpe">Grief &amp; Urgency</span><span class="bppl bpg">Exploration · Light Traversal</span></div><div class="ve"><iframe src="https://www.youtube.com/embed/Og4TtBtvCAI" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><div class="bpb"><p>Player finds a dying teammate who reveals the crash was an ambush.</p><ul class="bpl"><li>Establishes personal stakes and mission motivation</li><li>Grief and urgency introduced through narrative environmental cues</li></ul></div></div>
-<div class="bp" id="b3"><div class="bpn">Beat 03</div><h3>First Sight of the Enemy Base</h3><div class="bpp"><span class="bppl bpe">Tension &amp; Dread</span><span class="bppl bpg">Vista Reveal · Pathfinding</span></div><div class="ve"><iframe src="https://www.youtube.com/embed/jBH8a6kGffs" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><div class="bpb"><p>Player reaches the cliff edge and sees the hidden facility for the first time.</p><ul class="bpl"><li>Establishes the main objective and scale of threat</li><li>Panoramic reveal communicates the challenge ahead</li></ul></div></div>
-<div class="bp" id="b4"><div class="bpn">Beat 04</div><h3>Perimeter Yard Infiltration</h3><div class="bpp"><span class="bppl bpe">Agency &amp; Tension</span><span class="bppl bpg">Multi-Route Infiltration</span></div><div class="ve"><iframe src="https://www.youtube.com/embed/d2N4heUoX-s" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><div class="bpb"><p>First enemy encounter and a cinematic sequence of a truck passing toward the main gate. Enemy chatter hints at the facility's secrets.</p><div class="bpnt"><strong>Design Note:</strong> Each path reflects a mindset — precision, aggression, or survival — shaping how the player enters the facility.</div><div class="sbs"><button class="sbtn on" data-sub="b4a">4A — Right Path</button><button class="sbtn" data-sub="b4b">4B — Main Gate</button><button class="sbtn" data-sub="b4c">4C — Left Path</button></div><div class="spnl on" id="b4a"><div class="ve"><iframe src="https://www.youtube.com/embed/EBji8JyOdlI" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="color:var(--muted);font-size:.88rem;margin-top:8px">A quiet vertical approach — dragging a bin to reach the roof. High exposure, low noise. Ideal for players who prefer slipping past danger.</p></div><div class="spnl" id="b4b"><div class="ve"><iframe src="https://www.youtube.com/embed/E5hgTYw0BXY" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="color:var(--muted);font-size:.88rem;margin-top:8px">The loudest option. Direct conflict with patrols, cover-to-cover movement, and chaos.</p></div><div class="spnl" id="b4c"><div class="ve"><iframe src="https://www.youtube.com/embed/Ct-r2q6Qiik" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="color:var(--muted);font-size:.88rem;margin-top:8px">A grounded, tense route through debris — lifting a fallen door and squeezing through a fractured fence.</p></div></div></div>
-<div class="bp" id="b5"><div class="bpn">Beat 05</div><h3>Facility Infiltration</h3><div class="bpp"><span class="bppl bpe">Scale · Rising Tension</span><span class="bppl bpg">Navigation · Patrol Awareness</span></div><div class="bpb"><div class="sbs"><button class="sbtn on" data-sub="b5a1">5A-1 Parking Lot</button><button class="sbtn" data-sub="b5a2">5A-2 CCTV Room</button><button class="sbtn" data-sub="b5b">5B Barracks</button><button class="sbtn" data-sub="b5b1">5B-1 Guard Tower</button><button class="sbtn" data-sub="b5b2">5B-2 Dorm</button><button class="sbtn" data-sub="b5b3">5B-3 Armory</button></div><div class="spnl on" id="b5a1"><div class="ve"><iframe src="https://www.youtube.com/embed/l2RP6aZXRBw" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="color:var(--muted);font-size:.88rem;margin-top:8px">Crates labelled "Field test pending." Enemy chatter provides stealth clues. A whiteboard schedule reveals truths about the facility.</p><p style="color:var(--accent);font-style:italic;font-size:.82rem;margin-top:6px">"Something sinister is happening underground."</p></div><div class="spnl" id="b5a2"><div class="ve"><iframe src="https://www.youtube.com/embed/Cj-RZm9yK9E" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="color:var(--muted);font-size:.88rem;margin-top:8px">CCTV feeds show a scientist escorted underground and a wounded soldier. Terminal logs confirm restricted access and the Commander's involvement.</p></div><div class="spnl" id="b5b"><p style="color:var(--muted);font-size:.88rem;margin-top:8px">The barracks tell the story through whiteboards, radio logs, half-packed gear, tactical maps, and interactive investigation — communicating that the squad's ambush was intentional.</p></div><div class="spnl" id="b5b1"><div class="ve"><iframe src="https://www.youtube.com/embed/KySgBTmqX-I" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="color:var(--muted);font-size:.88rem;margin-top:8px">Player gains a vantage point, spots Bunker K04, realises it's locked but active.</p></div><div class="spnl" id="b5b2"><div class="ve"><iframe src="https://www.youtube.com/embed/GMrw3pl9564" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="color:var(--muted);font-size:.88rem;margin-top:8px">Personal effects, signs of stress, and a letter about a scientist moved to containment — humanising the enemy.</p></div><div class="spnl" id="b5b3"><div class="ve"><iframe src="https://www.youtube.com/embed/f99aSpahQxc" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><p style="color:var(--muted);font-size:.88rem;margin-top:8px">Crates marked for field tests, dead personnel, and illegal containment tech. Foreshadows biohazard threats.</p></div></div></div>
-<div class="bp" id="b6"><div class="bpn">Beat 06</div><h3>Commander Suite Access</h3><div class="bpp"><span class="bppl bpe">Determination · Rising Dread</span><span class="bppl bpg">Terminal Interaction · Intel</span></div><div class="ve"><iframe src="https://www.youtube.com/embed/QHRrz7-B8y0" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><div class="bpb"><p>The player enters the Commander's Suite, discovers the K04 access terminal, and witnesses a briefing room draped with a <strong>"PROJECT DAWN"</strong> banner.</p><ul class="bpl"><li>Officer is mid-speech outlining the urgency of bringing the scientist into compliance</li><li>Player overhears lines tying Isha to the project and confirming the facility's true purpose</li></ul></div></div>
-<div class="bp" id="b7"><div class="bpn">Beat 07</div><h3>Descent into the Bunkers</h3><div class="bpp"><span class="bppl bpe">Fear &amp; Claustrophobia</span><span class="bppl bpg">Tight Corridors · Close-Quarters</span></div><div class="ve"><iframe src="https://www.youtube.com/embed/Z8Y6n5xmAdo" allowfullscreen allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"></iframe></div><div class="bpb"><p>Player descends to the bunkers. The story uncovers in Act 2.</p><ul class="bpl"><li>Emotional low point — tight corridors, close-quarters encounters</li><li>To be continued in Act 2...</li></ul></div></div>
-</div>
-</div>
-<div class="td fi"><h4>Top-Down View of Beats</h4><img class="lb" src="images/Top down view of beats with numbers.png" alt="Top-down beat map"/></div>
-</section>
-
-<section class="section" id="techniques">
-<div class="sec-header"><p class="sec-eyebrow">05</p><h2>Techniques</h2></div>
-<div class="tb fi"><h3>Use Breadcrumbs to Guide Players</h3><div class="g3"><div class="iw"><img class="lb" src="images/Breadcrumbs 1.png" alt="Breadcrumbs 1"/><div class="cap">Scattered stone debris as a natural breadcrumb trail leading the player toward the hidden entrance.</div></div><div class="iw"><img class="lb" src="images/Breadcrumbs 2.png" alt="Breadcrumbs 2"/><div class="cap">Subtle blood traces on the floor guide attention toward the location of dead bodies and the next point of interest.</div></div><div class="iw"><img class="lb" src="images/Breadcrumbs 3.png" alt="Breadcrumbs 3"/><div class="cap">Fallen tree branches guide the player toward the intended pathway leading into the facility.</div></div></div></div>
-<div class="tb fi"><h3>Points of Interest (POI)</h3><div class="iw"><img class="lb" src="images/Points of Interest 1.png" alt="POI"/><div class="cap">A barren tree draws the player's eye amid surrounding greenery, while the yellow building and tower's blinking light serve as strong visual anchors.</div></div></div>
-<div class="tb fi"><h3>Affordances</h3><div class="t2"><div class="iw"><img class="lb" src="images/Affordances 1.png" alt="Affordances 1"/><div class="cap">The flashing light toward the yellow edge communicates the building is climbable — using the same yellow convention many games use for traversal.</div></div><div class="iw"><img class="lb" src="images/Affordances 2.png" alt="Affordances 2"/><div class="cap">Same visual-guidance technique applied to a small environmental puzzle — pull the object close and use it as a step to progress.</div></div></div></div>
-<div class="tb fi"><h3>Landmarks</h3><div class="arsl" id="t-lm"><div class="artr"><img src="images/Landmark 1.png" alt="Landmark 1"/><img src="images/Landmark 2.png" alt="Landmark 2"/><img src="images/Landmark 3.png" alt="Landmark 3"/><img src="images/Landmark 4.png" alt="Landmark 4"/><img src="images/Landmark 5.png" alt="Landmark 5"/><img src="images/Landmark 6.png" alt="Landmark 6"/><img src="images/Landmark 7.png" alt="Landmark 7"/></div><button class="ab prev" data-sl="t-lm">‹</button><button class="ab next" data-sl="t-lm">›</button></div><p class="sc">A central structure anchors the player's orientation and serves as a consistent landmark — visible from anywhere in the environment, helping players maintain spatial awareness intuitively.</p></div>
-<div class="tb fi"><h3>Environmental Storytelling</h3><div class="g3" style="gap:8px"><div class="iw"><img class="lb" src="images/Environmental Storytelling 1.png" alt="ES 1"/><div class="cap">Lab space marked by bloodstains, fallen bodies, and prisoner graffiti — conveying a sudden violent outbreak.</div></div><div class="iw"><img class="lb" src="images/Environmental Storytellin 2.png" alt="ES 2"/><div class="cap">Cramped dorm with scattered papers and a broken mirror showing stress and declining morale.</div></div><div class="iw"><img class="lb" src="images/Environmental Storytelling 3.png" alt="ES 3"/><div class="cap">Sealed bunker entrance with warning signs, red lighting, and barricades suggesting emergency lockdown.</div></div><div class="iw"><img class="lb" src="images/Environmental Storytelling 4.png" alt="ES 4"/><div class="cap">Monitoring station establishing the facility's hierarchy and surveillance culture.</div></div><div class="iw"><img class="lb" src="images/Environmental Storytelling 5.png" alt="ES 5"/><div class="cap">Work zone with "Project Dawn" labels foreshadowing instability around the prototype.</div></div><div class="iw"><img class="lb" src="images/Environmental Storytelling 6.png" alt="ES 6"/><div class="cap">Storage area with shift-reminder poster and audio-log terminal reinforcing rising security concerns.</div></div></div></div>
-<div class="tb fi"><h3>Contrast &amp; Composition</h3><div class="arsl" id="t-cc"><div class="artr"><img src="images/Contrast & Composition 1.png" alt="Contrast 1"/><img src="images/Contrast & Composition 2.png" alt="Contrast 2"/><img src="images/Contrast & Composition 3.png" alt="Contrast 3"/></div><button class="ab prev" data-sl="t-cc">‹</button><button class="ab next" data-sl="t-cc">›</button></div><p class="sc"><em>Light, shadow, and color are used to emphasise important gameplay areas or objects.</em></p></div>
-<div class="tb fi"><h3>Spatial Composition</h3><div class="iw"><img class="lb" src="images/Spatial Composition 1.png" alt="Spatial Composition"/><div class="cap">Additional side paths added to encourage exploration, offering loot or narrative elements.</div></div></div>
-<div class="tb fi"><h3>Framing &amp; Leading Lines</h3><div class="g2" style="gap:8px"><div class="iw"><img class="lb" src="images/Framing and Leading lines 1.png" alt="Framing 1"/><div class="cap">Highlighted stairs and directional edges form clear leading lines communicating the intended movement path.</div></div><div class="iw"><img class="lb" src="images/Framing and Leading lines 2.png" alt="Framing 2"/><div class="cap">Corridor's converging lines frame the bright exit, naturally pulling the player toward the open space.</div></div><div class="iw"><img class="lb" src="images/Framing and Leading lines 3.png" alt="Framing 3"/><div class="cap">Leading lines from path, terrain, and fencing guide the player's eye toward the command-centre entrance.</div></div><div class="iw"><img class="lb" src="images/Framing and Leading lines 4.png" alt="Framing 4"/><div class="cap">Terrain slopes and tree placement frame the structure, creating a clear visual funnel toward the tower.</div></div></div></div>
-</section>
-
-<section class="section" id="process">
-<div class="sec-header"><p class="sec-eyebrow">06</p><h2>Process</h2></div>
-<div class="pss">
-<div class="ps fi"><div class="psn">1</div><div class="psb"><h3>Research, Ideation &amp; Planning</h3><div class="pgl">Goal</div><div class="pgt">Develop a strong, fully formed level concept from the ground up.</div><div class="psc"><div class="psca"><img class="lb" src="images/Miro board.jpg" alt="Miro board"/><div class="pscap">Brainstorm board (Miro)</div></div><div class="psca"><img class="lb" src="images/Concept Document.png" alt="Concept Document"/><div class="pscap">Concept Document</div></div><div class="psca" style="grid-column:1/-1"><img class="lb" src="images/MAP flowchart.png" alt="Map Flowchart"/><div class="pscap">Map Flowchart</div></div></div><div class="pst"><ul><li>Used Miro to explore ideas across key categories: setting, locations, events, enemies, and mechanics</li><li>Had other level designers <strong>vote</strong> on favourite concepts to highlight the most promising directions</li><li>Built an initial <strong>concept document</strong> outlining location vision, player objectives, and core gameplay loop</li><li>Collected <strong>visual references</strong> to establish intended atmosphere, tone, and environmental style</li></ul><p><strong>Outcome:</strong> My mentor recommended breaking the concept into smaller pieces. I divided the full level into three acts and focused on <strong>Act 1</strong> first — built around three major areas: Crash Site &amp; Enemy Outpost, Perimeter Yard, and Facility Interior leading into the Bunkers.</p></div></div></div>
-<div class="ps fi"><div class="psn">2</div><div class="psb"><h3>Game Beats &amp; 2D Map</h3><div class="pgl">Goal</div><div class="pgt">Shape the gameplay rhythm and environmental flow; develop a 2D layout map and LDD.</div><div class="psc"><div class="psca"><img class="lb" src="images/Designer notes.png" alt="Designer Notes"/><div class="pscap">Designer Notes</div></div><div class="psca"><img class="lb" src="images/Game bits excel.png" alt="Game Beats"/><div class="pscap">Game Beats Spreadsheet</div></div><div class="psca"><img class="lb" src="images/Game bits excel part 2.png" alt="Game Beats 2"/><div class="pscap">Game Beats Part 2</div></div></div><p style="color:var(--muted);font-size:.82rem;margin:8px 0 10px">Environmental cues defined for each location:</p><div class="g4" style="gap:6px;margin-bottom:16px"><div class="psca"><img class="lb" src="images/Envirnoment Cue's 1.png" alt="Env 1"/></div><div class="psca"><img class="lb" src="images/Envirnoment Cue's 2.png" alt="Env 2"/></div><div class="psca"><img class="lb" src="images/Envirnoment Cue's 3.png" alt="Env 3"/></div><div class="psca"><img class="lb" src="images/Envirnoment Cue's 4.png" alt="Env 4"/></div></div><p style="color:var(--muted);font-size:.82rem;margin-bottom:10px">Intensity graphs and pacing structure:</p><div class="psc"><div class="psca"><img class="lb" src="images/Intensity graph 1.png" alt="IG 1"/><div class="pscap">Intensity Graph V.1</div></div><div class="psca"><img class="lb" src="images/Intensity graph 2.png" alt="IG 2"/><div class="pscap">Intensity Graph V.2</div></div><div class="psca"><img class="lb" src="images/Intensity graph 3.png" alt="IG 3"/><div class="pscap">Intensity Graph V.3</div></div><div class="psca"><img class="lb" src="images/2D layout.png" alt="2D Layout"/><div class="pscap">2D Layout Map</div></div></div></div></div>
-<div class="ps fi"><div class="psn">3</div><div class="psb"><h3>First Roughout</h3><div class="pgl">Goal</div><div class="pgt">Build a functional, testable version of the level as quickly as possible.</div><div class="psc"><div class="psca" style="grid-column:1/-1"><img class="lb" src="images/Pure ref board.png" alt="PureRef"/><div class="pscap">PureRef Board</div></div></div><div class="arsl" id="proc-ro" style="margin:12px 0"><div class="artr"><img src="images/Slide image 1.png" alt="R1"/><img src="images/Slide image 2.png" alt="R2"/><img src="images/Slide image 3.png" alt="R3"/><img src="images/Slide image 4.png" alt="R4"/></div><button class="ab prev" data-sl="proc-ro">‹</button><button class="ab next" data-sl="proc-ro">›</button></div><div class="pst"><ul><li>Shifted 2D layout into UE5 and constructed environment using simple block-out geometry</li><li>Iterated in play mode to assess navigation, sightlines, and gameplay flow</li><li>Implemented placeholder enemies, NPCs, and loot to simulate intended gameplay structure</li><li>Used Level Design Kit for rapid prototyping and PureRef board for visual direction</li></ul><p><strong>Result:</strong> The level reached a fully playable state early. Core gameplay loop — exploration, reward discovery, story progression — was clearly communicated.</p></div></div></div>
-<div class="ps fi"><div class="psn">4</div><div class="psb"><h3>Iterating the Roughout</h3><div class="pgl">Goal</div><div class="pgt">Transform the Crash Site and Perimeter Yard into a cohesive, immersive opening sequence.</div><div class="psc"><div class="psca"><img class="lb" src="images/Iterating the Roughout 1.png" alt="IR 1"/></div><div class="psca"><img class="lb" src="images/Iterating the Roughout 2.png" alt="IR 2"/></div><div class="psca"><img class="lb" src="images/Iterating the Roughout 3.png" alt="IR 3"/></div></div><div class="pst"><ul><li>Redesigned Crash Site to open with a short cinematic, panoramic reveal, and title card</li><li>Replaced cut-down fence with a small environmental puzzle supported by breadcrumbs</li><li>Introduced an early jump challenge using a broken cliff edge leading to the first enemy encounter</li><li>Refined lighting and sky atmosphere · Switched Game Mode to ALS</li></ul><p><strong>Result:</strong> The introduction now feels alive, intentional, and narratively cohesive.</p></div></div></div>
-<div class="ps fi"><div class="psn">5</div><div class="psb"><h3>Moving to the Blockout</h3><div class="pgl">Goal</div><div class="pgt">Address spaces lacking spatial depth, player guidance, and purposeful interactions.</div><div class="psc"><div class="psca"><img class="lb" src="images/Moving to blockout 1.png" alt="MB 1"/></div><div class="psca"><img class="lb" src="images/Moving to blockout 2.png" alt="MB 2"/></div><div class="psca"><img class="lb" src="images/Moving to blockout 3.png" alt="MB 3"/></div><div class="psca"><img class="lb" src="images/Moving to blockout 4.png" alt="MB 4"/></div></div><div class="pst"><ul><li>Introduced a <strong>tall landmark structure</strong> with distinctively coloured pillars as a visual anchor</li><li>Fixed a sequence break where players could miss key Commander Suite story beats</li><li>Expanded dormitory into two floors — Dorm A (golden path) and Dorm B (optional)</li><li>Redesigned the Armory for improved pacing, combat readability, and cover placement</li></ul></div></div></div>
-<div class="ps fi"><div class="psn">6</div><div class="psb"><h3>Iterating the Blockout</h3><div class="pgl">Goal</div><div class="pgt">Finalise tutorial encounter; polish Right-Side areas and Parking Lot; refine Briefing &amp; Commander Suite; begin lighting and post-processing.</div><div class="psc"><div class="psca"><img class="lb" src="images/Iterating the blockout 1.png" alt="IB 1"/></div><div class="psca"><img class="lb" src="images/Iterating the blockout 2.png" alt="IB 2"/></div><div class="psca"><img class="lb" src="images/Iterating the blockout 3.png" alt="IB 3"/></div><div class="psca"><img class="lb" src="images/Iterating the blockout 4.png" alt="IB 4"/></div><div class="psca" style="grid-column:1/-1"><img class="lb" src="images/Iterating the blockout 5.png" alt="IB 5"/></div></div><div class="pst"><ul><li>Moved first enemy encounter to cliff edge to give the player a breather</li><li>Reworked parking lot with stealth traversal props, attention-guiding lighting, and Blueprint interactions</li><li>Colour-coded non-interactive props in neutral grey to reduce visual noise</li><li>Introduced post-processing to reinforce an oppressive mood</li></ul></div></div></div>
-<div class="ps fi"><div class="psn">7</div><div class="psb"><h3>Refining the Blockout</h3><div class="pgl">Goal</div><div class="pgt">Deepen the Armory Annex and Entrance to Security Command Center — improving pacing, verticality, and environmental storytelling.</div><div class="psc"><div class="psca"><img class="lb" src="images/Refining the blockout 1.png" alt="Ref 1"/></div><div class="psca"><img class="lb" src="images/Refining the blockout GIF 1.gif" alt="Ref GIF 1"/><div class="pscap">Cinematic truck entry</div></div><div class="psca"><img class="lb" src="images/Refining the blockout 2.png" alt="Ref 2"/></div><div class="psca"><img class="lb" src="images/Refining the blockout GIF 2.gif" alt="Ref GIF 2"/><div class="pscap">Animation preview</div></div><div class="psca"><img class="lb" src="images/Refining the blockout 3.png" alt="Ref 3"/></div><div class="psca"><img class="lb" src="images/Refining the blockout GIF 3.gif" alt="Ref GIF 3"/><div class="pscap">Animation preview</div></div><div class="psca" style="grid-column:1/-1"><img class="lb" src="images/Refining the blockout 4.png" alt="Ref 4"/></div></div><div class="pst"><ul><li>Added a <strong>truck entry set piece</strong> using motion and composition as leading lines toward the main entrance</li><li>Expanded Armory Annex to allow foreshadowing of the scene and different approaches</li><li>Replaced a hard-to-find ladder with a rounded staircase supported by leading lines and targeted lighting</li><li>Container corridor features a broken entry point foreshadowing the storage complex beneath the Security Command Center</li></ul></div></div></div>
-</div>
-<div class="lb2 fi"><h3>Key Design Lessons</h3><ul><li>Emotional pacing is as important as mechanical pacing.</li><li>Environmental storytelling can carry narrative weight without cutscenes.</li><li>Spatial hierarchy naturally guides player expectations.</li><li>Every area should answer "Why does this exist?"</li></ul><p>This project helped me refine my ability to blend narrative and gameplay into a cohesive experience.</p></div>
-</section>
-
-</main>
-</div>
-
-<footer><p>All rights reserved &nbsp;·&nbsp; Sai Bhargav &nbsp;·&nbsp; <span id="yr"></span></p></footer>
 <div id="lb"><button id="lbx">&times;</button><img id="lbi" src="" alt=""/></div>
 
 <script>
-function initAS(id,dId){const w=document.getElementById(id);if(!w)return;const t=w.querySelector('.at'),imgs=t.querySelectorAll('img'),dw=document.getElementById(dId);let c=0;imgs.forEach((_,i)=>{const b=document.createElement('button');if(i===0)b.classList.add('on');b.addEventListener('click',()=>go(i));dw.appendChild(b);});function go(i){c=i;t.style.transform=`translateX(-${100*c}%)`;dw.querySelectorAll('button').forEach((b,j)=>b.classList.toggle('on',j===c));}setInterval(()=>go((c+1)%imgs.length),3200);}
-initAS('sl-b','d-b');initAS('sl-p','d-p');
-const ars={};
-document.querySelectorAll('.ab').forEach(btn=>{btn.addEventListener('click',()=>{const id=btn.dataset.sl,w=document.getElementById(id),t=w.querySelector('.artr'),imgs=t.querySelectorAll('img');if(!ars[id])ars[id]=0;ars[id]=btn.classList.contains('next')?(ars[id]+1)%imgs.length:(ars[id]-1+imgs.length)%imgs.length;t.style.transform=`translateX(-${100*ars[id]}%)`;});});
-document.querySelectorAll('.bb').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.bb').forEach(b=>b.classList.remove('on'));document.querySelectorAll('.bp').forEach(p=>p.classList.remove('on'));btn.classList.add('on');document.getElementById(btn.dataset.beat)?.classList.add('on');});});
-document.querySelectorAll('.sbtn').forEach(btn=>{btn.addEventListener('click',()=>{const p=btn.closest('.bp,.section');p.querySelectorAll('.sbtn').forEach(b=>b.classList.remove('on'));p.querySelectorAll('.spnl').forEach(p=>p.classList.remove('on'));btn.classList.add('on');p.querySelector('#'+btn.dataset.sub)?.classList.add('on');});});
-const lb=document.getElementById('lb'),lbi=document.getElementById('lbi');
-document.querySelectorAll('.lb,.iw img,.psca img,.ts img,.ip').forEach(img=>{img.style.cursor='zoom-in';img.addEventListener('click',()=>{lbi.src=img.src;lb.classList.add('open');});});
-document.getElementById('lbx').addEventListener('click',()=>lb.classList.remove('open'));
-lb.addEventListener('click',e=>{if(e.target===lb)lb.classList.remove('open');});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')lb.classList.remove('open');});
-const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:0.07});
-document.querySelectorAll('.fi').forEach(el=>obs.observe(el));
-const tocLinks=document.querySelectorAll('.toc-list a');
-window.addEventListener('scroll',()=>{let cur='';document.querySelectorAll('[id]').forEach(s=>{if(window.scrollY>=s.offsetTop-130)cur=s.id;});tocLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));},{passive:true});
-document.getElementById('yr').textContent=new Date().getFullYear();
+// ── CAROUSEL ──
+const carState = {};
+function initCarousel(id) {
+  const el = document.getElementById(id); if (!el) return;
+  const track = el.querySelector('.carousel-track');
+  const imgs = track.querySelectorAll('img');
+  const counter = document.getElementById('cnt-' + id);
+  carState[id] = 0;
+  function go(n) {
+    carState[id] = (n + imgs.length) % imgs.length;
+    track.style.transform = `translateX(-${100 * carState[id]}%)`;
+    if (counter) counter.textContent = (carState[id]+1) + ' / ' + imgs.length;
+  }
+  el.querySelectorAll('.car-btn').forEach(btn => {
+    btn.addEventListener('click', () => go(carState[id] + (btn.classList.contains('next') ? 1 : -1)));
+  });
+}
+['car-barracks','car-parking','car-nar','car-exp','car-lm','car-cc','car-ro','car-ib','car-ref'].forEach(initCarousel);
+
+// ── BEAT TABS ──
+document.querySelectorAll('.beat-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.beat-btn').forEach(b => b.classList.remove('on'));
+    document.querySelectorAll('.beat-panel').forEach(p => p.classList.remove('on'));
+    btn.classList.add('on');
+    document.getElementById(btn.dataset.beat)?.classList.add('on');
+  });
+});
+
+// ── SUB BEAT TABS ──
+document.querySelectorAll('.sub-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const parent = btn.closest('.beat-panel, section');
+    parent.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('on'));
+    parent.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('on'));
+    btn.classList.add('on');
+    parent.querySelector('#' + btn.dataset.sub)?.classList.add('on');
+  });
+});
+
+// ── COLLAPSIBLE ──
+function toggleColl(id) {
+  document.getElementById(id)?.classList.toggle('open');
+}
+
+// ── LIGHTBOX ──
+const lb = document.getElementById('lb'), lbi = document.getElementById('lbi');
+document.querySelectorAll('.lb, .img-wrap img, .ps-card img, .thumb-grid img, .img-plain').forEach(img => {
+  img.style.cursor = 'zoom-in';
+  img.addEventListener('click', () => { lbi.src = img.src; lb.classList.add('open'); });
+});
+document.getElementById('lbx').addEventListener('click', () => lb.classList.remove('open'));
+lb.addEventListener('click', e => { if (e.target === lb) lb.classList.remove('open'); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
+
+// ── SCROLL FADE ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.07 });
+document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+
+// ── ACTIVE TOC ──
+const tocLinks = document.querySelectorAll('.toc-list a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  document.querySelectorAll('[id]').forEach(s => {
+    if (window.scrollY >= s.offsetTop - 130) current = s.id;
+  });
+  tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+}, { passive: true });
+
+// ── FOOTER YEAR ──
+document.getElementById('yr').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
